@@ -16,6 +16,8 @@ int main(int argc, char const *argv[]){
         cout << "---------------------------------------------------" << endl;
         cout << " 1 -- INSERIR EXPRESSÃO (INFIXA)" << endl;
         cout << " 2 -- VISUALIZAÇÃO DO AUTÔMATO DE THOMPSON " << endl;
+        cout << " 3 -- VISUALIZAÇÃO DOS FECHO-E" << endl;
+        cout << " 4 -- VISUALIZAÇÃO DO AFD" << endl;
         cout << " 0 -- SAIR" << endl;
         cout << "---------------------------------------------------" << endl;
         cout << " OPÇÃO: ";
@@ -41,6 +43,18 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 posTho = pos->retorno();
                 tho->montadorAutomato(posTho);
+                break;
+            case 3: 
+                cout << "---------------------------------------------------" << endl;
+                cout << "\t VISUALIZAÇÃO DOs FECHO-E" << endl;
+                cout << "---------------------------------------------------" << endl;
+                //Chama o método para calcular os fechos
+                break;
+            case 4:
+                cout << "---------------------------------------------------" << endl;
+                cout << "\t VISUALIZAÇÃO DO AFD" << endl;
+                cout << "---------------------------------------------------" << endl;
+                //CHAMAR FUNÇÃO AQUI PARA MOSTRAR O AUTOMATO FINITO DETERMINÍSTICO
                 break;
             case 0:
                 cout << "\tAPLICAÇÃO ENCERRADA COM SUCESSO!" << endl << endl;
