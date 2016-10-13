@@ -149,6 +149,8 @@ class Thompson{
 				cout << endl << "----------------------------------------------------------------------" << endl;
 			}
 			cout << endl;
+			//string ar = automato.getEstados();
+			//cout << "TESTE: " << ar << endl;
 		};
 
 		/*------------------------FUNÇÃO PARA VERIFICAR PALAVRA VAZIA------------------------*/

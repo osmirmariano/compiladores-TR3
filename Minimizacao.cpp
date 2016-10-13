@@ -2,9 +2,8 @@
 
 using namespace std;
 
-class AutomatoFD{
+class Minimizacao{
 	public:
-		AutomatoFD();
-		~AutomatoFD();
-	
+		Minimizacao();
+		~Minimizacao();
 };

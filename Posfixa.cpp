@@ -282,8 +282,9 @@ class Posfixa{
                 }
                 posfixaThompson = posfixa;
                 cout << "----------------------------------------------------------------------" << endl;
-                cout <<  " A CONVERSÃO DA EXPRESSAO: '" << novaExpressao << "' INFIXA PARA ";
-                cout << "POSFIXA É: " << posfixa << endl;
+                cout << " \t A CONVERSÃO DE INFIXA PARA POSFIXA" << endl;
+                cout << " INFIXA: " << novaExpressao << endl;
+                cout << " POSFIXA: " << posfixa << endl;
                 cout << "----------------------------------------------------------------------" << endl << endl;
                 topo = NULL;
             }
