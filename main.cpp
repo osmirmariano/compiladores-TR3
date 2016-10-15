@@ -2,7 +2,8 @@
 #include <stack>
 #include "Posfixa.cpp"
 #include "Thompson.cpp"
-//#include "Subconjuntos.cpp"
+#include "Automato.cpp"
+#include "Subconjuntos.cpp"
 using namespace std;
 
 int main(int argc, char const *argv[]){
@@ -10,8 +11,10 @@ int main(int argc, char const *argv[]){
     string expressao, posTho;
     Posfixa *pos = new Posfixa();
     Thompson *tho = new Thompson();
-    //AutomatoFD *afd = new AutomatoFD();
+    Subconjuntos *subconj = new Subconjuntos();
+    Automato automato;
     string estado;
+
     
     do{
         cout << "---------------------------------------------------" << endl;
@@ -22,6 +25,7 @@ int main(int argc, char const *argv[]){
         cout << " 3 -- VISUALIZAÇÃO DOS FECHO-E" << endl;
         cout << " 4 -- VISUALIZAÇÃO DO AFD" << endl;
         cout << " 5 -- AFD MINÍMO" << endl;
+        cout << " 6 -- PARA TESTE, VISUALIZAÇÃO DO AUTÔMATO ESTRUTURADO" << endl;
         cout << " 0 -- SAIR" << endl;
         cout << "---------------------------------------------------" << endl;
         cout << " OPÇÃO: ";
@@ -42,7 +46,7 @@ int main(int argc, char const *argv[]){
                 cout << "\t VISUALIZAÇÃO DO AUTÔMATO DE THOMPSON" << endl;
                 cout << "---------------------------------------------------" << endl;
                 posTho = pos->retorno();
-                tho->montadorAutomato(posTho);
+                automato = tho->montadorAutomato(posTho);
                 break;
             case 3: 
                 cout << "---------------------------------------------------" << endl;
@@ -55,11 +59,20 @@ int main(int argc, char const *argv[]){
                 cout << "\t VISUALIZAÇÃO DO AFD" << endl;
                 cout << "---------------------------------------------------" << endl;
                 //CHAMAR FUNÇÃO AQUI PARA MOSTRAR O AUTOMATO FINITO DETERMINÍSTICO
+                break;
             case 5:
                 cout << "---------------------------------------------------" << endl;
                 cout << "\t AUTÔMATO MINÍMO" << endl;
                 cout << "---------------------------------------------------" << endl;
-                
+                //CHAMA A FUNÇÃO MINIMIZAÇÃO
+                break;
+            case 6: 
+                cout << "---------------------------------------------------" << endl;
+                cout << "\t VISUALIZAÇÃO DO AUTÔMATO ESTRUTURADO" << endl;
+                cout << "---------------------------------------------------" << endl;
+                //posTho = pos->retorno();
+                subconj->mostrarEstruturaAutomato(automato);
+                //tho->recebeAutomato(posTho);
                 break;
             case 0:
                 cout << "\tAPLICAÇÃO ENCERRADA COM SUCESSO!" << endl << endl;

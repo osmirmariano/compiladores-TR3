@@ -1,3 +1,6 @@
+#ifndef THOMPSON_H
+#define THOMPSON_H
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -50,7 +53,7 @@ class Thompson{
 			string simbolo;
 			if(posTho.length() == 0){
 				cout << "---------------------------------------------------" << endl;
-				cout << " É NECESSÁRIO INSERIR PRIMEIRO UMA EXPRESSÃO" << endl;
+				cout << " É NECESSÁRIO INSERIR PRIMEIRO UMA EXPRESSÃO." << endl;
 				cout << " \tPOR FAVOR, ESCOLHA A OPÇÃO 1" << endl;
 				cout << "---------------------------------------------------" << endl;
 			}
@@ -149,8 +152,6 @@ class Thompson{
 				cout << endl << "----------------------------------------------------------------------" << endl;
 			}
 			cout << endl;
-			//string ar = automato.getEstados();
-			//cout << "TESTE: " << ar << endl;
 		};
 
 		/*------------------------FUNÇÃO PARA VERIFICAR PALAVRA VAZIA------------------------*/
@@ -416,3 +417,4 @@ class Thompson{
 			return automato;
 		};
 };
+#endif // THOMPSON_H
