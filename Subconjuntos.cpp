@@ -53,17 +53,21 @@ class Subconjuntos{
 			cout << endl;
             cout << " QUANT ESTADOS: " << automato.getNumeroEstados() << endl;
             cout << " QUANT TRANSIÇÕES: " << automato.getNumeroTransicoes() << endl;
+            cout << "\t TRANSIÇÕES: " << endl; 
 			for(int x = 0; x < transicoes.size(); x++){
-                cout << " TRANSIÇÕES: " << transicoes[x].getOrigem() << " --> " << transicoes[x].getDestino() << endl;
+                cout << "  ENTRA " << transicoes[x].getOrigem() << " VAI PARA " << transicoes[x].getDestino() << endl;
 			}
 			cout << endl;
             string teste = automato.getAlfabeto();
+            //int b = 0;
 			for(int x = 0; x < automato.getNumeroTransicoes(); x++){
 				for(int y = 0; y < transicoes.size(); y++) {
                     if(teste[x] == '&' ){
                         cout << " TRANSIÇÕES: " << transicoes[y].getOrigem() << " --> " << transicoes[y].getDestino() << endl;
+                        //cout << " TRANSIÇÕES: " << transicoes[b].getOrigem() << " --> " << transicoes[y].getDestino() << endl;
                     }
 				}
+				//b++;
 			}
 		}
 };
