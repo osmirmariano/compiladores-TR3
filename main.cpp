@@ -24,7 +24,7 @@ int main(int argc, char const *argv[]){
         cout << " 2 -- VISUALIZAÇÃO DO AUTÔMATO DE THOMPSON " << endl;
         cout << " 3 -- VISUALIZAÇÃO DOS FECHO-E" << endl;
         cout << " 4 -- VISUALIZAÇÃO DO AFD" << endl;
-        cout << " 5 -- AFD MINÍMO" << endl;
+        cout << " 5 -- AFD MÍNIMO" << endl;
         cout << " 6 -- PARA TESTE, VISUALIZAÇÃO DO AUTÔMATO ESTRUTURADO" << endl;
         cout << " 0 -- SAIR" << endl;
         cout << "---------------------------------------------------" << endl;
@@ -52,7 +52,7 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 cout << "\t VISUALIZAÇÃO DOS FECHO-E" << endl;
                 cout << "---------------------------------------------------" << endl;
-                //afd->fechoE(estado)
+                subconj->fechoE(automato);
                 break;
             case 4:
                 cout << "---------------------------------------------------" << endl;
@@ -62,7 +62,7 @@ int main(int argc, char const *argv[]){
                 break;
             case 5:
                 cout << "---------------------------------------------------" << endl;
-                cout << "\t AUTÔMATO MINÍMO" << endl;
+                cout << "\t AUTÔMATO MÍNIMO" << endl;
                 cout << "---------------------------------------------------" << endl;
                 //CHAMA A FUNÇÃO MINIMIZAÇÃO
                 break;
