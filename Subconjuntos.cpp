@@ -47,7 +47,7 @@ class Subconjuntos{
 		vector<string> fechoE(Automato automato, string estadoAtual){
 			int valor = 0, flag = 0;
 			vector<string> fechos;
-			fechos.clear();
+			//fechos.clear();
 			string estado = estadoAtual;
             vector<Transicao> transicoes = automato.getTransicoes();
 
@@ -55,13 +55,29 @@ class Subconjuntos{
             fechos.push_back(estadoAtual);
 			//Pegando as os estados com transições vazias
 	        for(int z = 0; z < transicoes.size(); z++){
-	        	if(estadoAtual == fechos[x] && transicoes[z].getOrigem() == estadoAtual){
+	        	cout << "ORIGEM: " << transicoes[z].getOrigem() << endl;
+	        	cout << "SIMBOLO: " << transicoes[z].getSimbolo() << endl;
+	        	cout << " TRANSIÇÕES: " << transicoes[z].getOrigem() << " --> " << transicoes[z].getDestino() << endl << endl;
+		        			
+	        	if(transicoes[z].getOrigem() == estadoAtual){
 	        		if(transicoes[z].getSimbolo() == '&' ){
-	        			cout << " TRANSIÇÕES: " << transicoes[z].getOrigem() << " --> " << transicoes[z].getDestino() << endl;
-	        			fechos.push_back(transicoes[z].getDestino());
-		           		estadoAtual = fechos[x+1];
+	        		//cout << "SIMBOLO: " << transicoes[z].getSimbolo() << endl;
+	        			//if(transicoes[z].getOrigem() != estadoAtual){
+		        			cout << " TRANSIÇÕES: " << transicoes[z].getOrigem() << " --> " << transicoes[z].getDestino() << endl;
+		        			fechos.push_back(transicoes[z].getDestino());
+		        			//cout << "TAMANHO: " << fechos.size() << endl;
+			           		estadoAtual = fechos[x];
+			           		cout << "ESTADO ATUAL: " << estadoAtual << endl;
+			           		cout << "ESTADO FECHO: " << fechos[x] << endl;
+			           		cout << "DESTINO: " << transicoes[z].getDestino() << endl;
+			           	//}
+		        		if(fechos[x] != transicoes[z].getOrigem()){
+		        			estadoAtual = transicoes[x+1].getOrigem();
+		        			cout << "NOVO ATUAL: " << estadoAtual << endl;
+		        		}
+		        		x++;
+
 		           	}
-		        	x++;
 	           	}	 
 	        }
 		           		
@@ -91,7 +107,7 @@ class Subconjuntos{
             		flag++;
             	}
             }
-            cout << "}" << endl;
+            cout << "}" << endl << endl;
 			return fechos;
 		};
 };
