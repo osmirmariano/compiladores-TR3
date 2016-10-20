@@ -44,66 +44,54 @@ class Subconjuntos{
 		};
 
 		//Obtendo os fechosE
-		vector<string> fechoE(Automato automato/*, vector<string> estadoAtual*/){
-			int valor = 0, a = 0;
+		vector<string> fechoE(Automato automato, string estadoAtual){
+			int valor = 0, flag = 0;
 			vector<string> fechos;
+			fechos.clear();
+			string estado = estadoAtual;
             vector<Transicao> transicoes = automato.getTransicoes();
-			string simbolo, recebe1;
-			string estadoAtual;
-			simbolo = automato.getAlfabeto();
 
-			estadoAtual = retornaEstadoAtual(automato, valor++);
+	        int x = 0;
             fechos.push_back(estadoAtual);
-            cout << endl << "ESTADO ATUAL: " << estadoAtual << endl;
-			
-
-            //for(int y = 0; y < automato.getTamanhoAlfabeto(); y++){
-            	//cout << " ALFABETO: " << simbolo[y] << endl;
-	            //if(simbolo[y] == '&'){
-            //int  y = 0;
+			//Pegando as os estados com transições vazias
 	        for(int z = 0; z < transicoes.size(); z++){
-	        	if(transicoes[z].getSimbolo() == '&'){
-					fechos.push_back(transicoes[z].getDestino());
-	           	}
+	        	if(estadoAtual == fechos[x] && transicoes[z].getOrigem() == estadoAtual){
+	        		if(transicoes[z].getSimbolo() == '&' ){
+	        			cout << " TRANSIÇÕES: " << transicoes[z].getOrigem() << " --> " << transicoes[z].getDestino() << endl;
+	        			fechos.push_back(transicoes[z].getDestino());
+		           		estadoAtual = fechos[x+1];
+		           	}
+		        	x++;
+	           	}	 
 	        }
-	        for(int x = 0; x < fechos.size(); x++){
-	        	cout << "FECHO Q0: " << fechos[x] << endl;
-	        }
-	            			//cout << endl << "TESTE: " << transicoes[z].getSimbolo() << endl;
-		            		//cout << "simbolo: " << simbolo[y] << endl;
-		            		//cout << " TRANSIÇÕES: " << transicoes[z].getOrigem() << " --> " << transicoes[z].getDestino() << endl;
-						
-						/*recebe1 += fechos[z+1];
-						cout << "RECEBE: " << recebe1 << endl;
-						if(fechos[z] != estadoAtual){
-							estadoAtual = fechos[z-1];
-							//y = 0;
-							//z = 0;
-						}*/
-							// y++;
-							// if(y == 3)
-							// 	y = 0;
-            	//}
-            //}
+		           		
 
-            /*for(int x = 0; x < 10; x++){
-            	cout << "FECHOS: " << fechos[x] << endl;
-            }*/
-            /*for(int x = 0; x < automato.getTamanhoAlfabeto(); x++){
-            	//fechos.push_back(retornaEstadoAtual(automato, valor));
-                if(simbolo[x] == '&'){
-                	for(int y = 0; y < transicoes.size(); y++){
-                		if(transicoes[y].getOrigem() == estadoAtual){
-	                       cout << " TRANSIÇÕES: " << transicoes[y].getOrigem() << " --> " << transicoes[y].getDestino() << endl;
-	                       fechos.push_back(transicoes[y].getDestino());
-	                       cout << " FECHOS: " << fechos[y];
-                		}
-	                }
-                }
-                valor++;
+	        //Remover elementos repetidos
+	        int tamanho =  fechos.size();
+	        for(int x = 0; x < tamanho; x++){
+	        	for(int y = x+1; y < tamanho; y++){
+	        		if(fechos[x] == fechos[y]){
+	        			int b = x;
+	        			while(b < tamanho){
+	        				fechos[b] = fechos[b+1];
+	        				b++;
+	        			}
+	        			tamanho--;
+	        			x = x-1;
+	        			y = y-1;
+	        		}
+	        	}
+	        }
+	        cout << "FECHOS-E (" << estado << "): ";
+	        cout << "{";
+            for(int x = 0; x < tamanho; x++){
+            	cout << fechos[x];
+            	if(flag < tamanho-1){
+            		cout << ",";
+            		flag++;
+            	}
             }
-			*/
-
+            cout << "}" << endl;
 			return fechos;
 		};
 };

@@ -52,7 +52,10 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 cout << "\t VISUALIZAÇÃO DOS FECHO-E" << endl;
                 cout << "---------------------------------------------------" << endl;
-                subconj->fechoE(automato);
+                for(int x = 0; x < automato.getNumeroEstados(); x++){
+                     subconj->fechoE(automato, automato.getEstado(x));
+                }
+                //cout << "FECHO: " << subconj->fechoE(automato, automato.getEstado(x));
                 break;
             case 4:
                 cout << "---------------------------------------------------" << endl;
@@ -80,7 +83,7 @@ int main(int argc, char const *argv[]){
             default:
                 cout << "\tOPÇÃO INVÁLIDA, POR FAVOR ESCOLHA UMA VÁLIDA" << endl;
         }
-        cout << endl << "  PARA VOLTAR AO MENU PRESSIONE 0 E CONFIRME COM UM ENTER" << endl;
+        cout << endl << "  PARA VOLTAR AO MENU PRESSIONE ENTER" << endl;
         cin.ignore().get();//Comando para Pausa no terminal
         cout << "\e[H\e[2J";//Comando para limpar a tela
     }while(op != 0);
