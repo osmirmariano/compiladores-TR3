@@ -37,50 +37,64 @@ class Subconjuntos{
 		};
 
 		//FUNÇÃO PARA RETORNAR O ESTADO ATUAL PARA CALCULAR OS FECHOS E
-		string retornaEstadoAtual(Automato automato, int valor){
+		/*string retornaEstadoAtual(Automato automato, int valor){
 			string estadoAtual;
 			estadoAtual = automato.getEstado(valor);
 			return estadoAtual;
 		};
+		*/
+		vector<string> fechoIndividual(vector<string> fechoEstado){
+
+		};
+
+		vector<string> fechosE(Automato automato, string estadoAtual){
+			vector<string> armazena;
+            vector<Transicao> transicoes = automato.getTransicoes();
+            armazena.clear();
+            for(int z = 0; z < transicoes.size(); z++){
+	        	if(transicoes[z].getSimbolo() == '&' ){
+	        		if(transicoes[z].getOrigem() == estadoAtual){
+		        		armazena.push_back(transicoes[z].getDestino());
+		           	}
+	           	}
+	        }
+	        return armazena;
+		};
 
 		//Obtendo os fechosE
 		vector<string> fechoE(Automato automato, string estadoAtual){
-			int valor = 0, flag = 0;
+			int valor = 0, flag = 0, x = 0;
 			vector<string> fechos;
-			//fechos.clear();
 			string estado = estadoAtual;
             vector<Transicao> transicoes = automato.getTransicoes();
 
-	        int x = 0;
+			vector<string> recebe = fechosE(automato, estadoAtual);
             fechos.push_back(estadoAtual);
 			//Pegando as os estados com transições vazias
 	        for(int z = 0; z < transicoes.size(); z++){
-	        	cout << "ORIGEM: " << transicoes[z].getOrigem() << endl;
-	        	cout << "SIMBOLO: " << transicoes[z].getSimbolo() << endl;
-	        	cout << " TRANSIÇÕES: " << transicoes[z].getOrigem() << " --> " << transicoes[z].getDestino() << endl << endl;
-		        			
+	        	cout << " ORIGEM: " << transicoes[z].getOrigem() << endl;
+	        	cout << " SIMBOLO: " << transicoes[z].getSimbolo() << endl;
+	        	cout << " ESTADO ATUAL ANTES: " << estadoAtual << endl;
+	        	cout << " TRANSIÇÕES FORA: " << transicoes[z].getOrigem() << " --> " << transicoes[z].getDestino() << endl;
 	        	if(transicoes[z].getOrigem() == estadoAtual){
 	        		if(transicoes[z].getSimbolo() == '&' ){
-	        		//cout << "SIMBOLO: " << transicoes[z].getSimbolo() << endl;
-	        			//if(transicoes[z].getOrigem() != estadoAtual){
-		        			cout << " TRANSIÇÕES: " << transicoes[z].getOrigem() << " --> " << transicoes[z].getDestino() << endl;
-		        			fechos.push_back(transicoes[z].getDestino());
-		        			//cout << "TAMANHO: " << fechos.size() << endl;
-			           		estadoAtual = fechos[x];
-			           		cout << "ESTADO ATUAL: " << estadoAtual << endl;
-			           		cout << "ESTADO FECHO: " << fechos[x] << endl;
-			           		cout << "DESTINO: " << transicoes[z].getDestino() << endl;
+		        		cout << " TRANSIÇÕES: " << transicoes[z].getOrigem() << " --> " << transicoes[z].getDestino() << endl;
+		        		fechos.push_back(transicoes[z].getDestino());
+		        		//cout << "TAMANHO: " << fechos.size() << endl;
+			           	estadoAtual = fechos[x];
+			           	cout << " ESTADO ATUAL: " << estadoAtual << endl;
+			           	cout << " ESTADO FECHO: " << fechos[x] << endl;
+			           	cout << " DESTINO: " << transicoes[z].getDestino() << endl << endl;
 			           	//}
 		        		if(fechos[x] != transicoes[z].getOrigem()){
 		        			estadoAtual = transicoes[x+1].getOrigem();
-		        			cout << "NOVO ATUAL: " << estadoAtual << endl;
+		        			//cout << "NOVO ATUAL: " << estadoAtual << endl;
 		        		}
 		        		x++;
 
 		           	}
 	           	}	 
 	        }
-		           		
 
 	        //Remover elementos repetidos
 	        int tamanho =  fechos.size();
@@ -98,7 +112,7 @@ class Subconjuntos{
 	        		}
 	        	}
 	        }
-	        cout << "FECHOS-E (" << estado << "): ";
+	        cout << " FECHOS-E (" << estado << "): ";
 	        cout << "{";
             for(int x = 0; x < tamanho; x++){
             	cout << fechos[x];
@@ -108,6 +122,7 @@ class Subconjuntos{
             	}
             }
             cout << "}" << endl << endl;
+            cout << "--------------------------------------------------------" << endl;
 			return fechos;
 		};
 };
