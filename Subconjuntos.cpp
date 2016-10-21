@@ -36,21 +36,32 @@ class Subconjuntos{
 			//fechoE(automato);
 		};
 
-		//FUNÇÃO PARA RETORNAR O ESTADO ATUAL PARA CALCULAR OS FECHOS E
-		/*string retornaEstadoAtual(Automato automato, int valor){
-			string estadoAtual;
-			estadoAtual = automato.getEstado(valor);
-			return estadoAtual;
-		};
-		*/
-		vector<string> fechoIndividual(vector<string> fechoEstado){
-
+		vector<string> fechoEOficial(Automato automato, string estadoAtual){
+			vector<string> fechos;
+			vector<Transicao> transicoes = automato.getTransicoes();
+			vector<string> recebe = fechosE(automato, estadoAtual);
+			fechos.push_back(estadoAtual);
+			for(int x = 0; x < recebe.size(); x++){
+				fechos.push_back(recebe[x]);
+			}
+			
+			int valor = fechosE (automato, estadoAtual).size();
+			for(int x = 0; x < recebe.size(); x++){
+				if(valor == 0){
+					fechos.push_back(recebe[x]);
+				}
+				else{
+					fechos.push_back(fechosE (automato, recebe[x]));
+				}
+			}
+			return fechos;
 		};
 
 		vector<string> fechosE(Automato automato, string estadoAtual){
 			vector<string> armazena;
             vector<Transicao> transicoes = automato.getTransicoes();
             armazena.clear();
+
             for(int z = 0; z < transicoes.size(); z++){
 	        	if(transicoes[z].getSimbolo() == '&' ){
 	        		if(transicoes[z].getOrigem() == estadoAtual){
@@ -60,15 +71,19 @@ class Subconjuntos{
 	        }
 	        return armazena;
 		};
-
+		/*---------------------------------------------------------------------------*/
 		//Obtendo os fechosE
 		vector<string> fechoE(Automato automato, string estadoAtual){
+			vector<string> recebe = fechosE(automato, estadoAtual);
+			for(int x = 0; x < recebe.size(); x++){
+				cout << "RECEBE: " << recebe[x] << endl;
+			}
+
 			int valor = 0, flag = 0, x = 0;
 			vector<string> fechos;
 			string estado = estadoAtual;
             vector<Transicao> transicoes = automato.getTransicoes();
 
-			vector<string> recebe = fechosE(automato, estadoAtual);
             fechos.push_back(estadoAtual);
 			//Pegando as os estados com transições vazias
 	        for(int z = 0; z < transicoes.size(); z++){
