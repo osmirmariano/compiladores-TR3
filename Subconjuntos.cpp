@@ -36,32 +36,10 @@ class Subconjuntos{
 			//fechoE(automato);
 		};
 
-		vector<string> fechoEOficial(Automato automato, string estadoAtual){
-			vector<string> fechos;
-			vector<Transicao> transicoes = automato.getTransicoes();
-			vector<string> recebe = fechosE(automato, estadoAtual);
-			fechos.push_back(estadoAtual);
-			for(int x = 0; x < recebe.size(); x++){
-				fechos.push_back(recebe[x]);
-			}
-			
-			int valor = fechosE (automato, estadoAtual).size();
-			for(int x = 0; x < recebe.size(); x++){
-				if(valor == 0){
-					fechos.push_back(recebe[x]);
-				}
-				else{
-					fechos.push_back(fechosE (automato, recebe[x]));
-				}
-			}
-			return fechos;
-		};
-
 		vector<string> fechosE(Automato automato, string estadoAtual){
 			vector<string> armazena;
             vector<Transicao> transicoes = automato.getTransicoes();
             armazena.clear();
-
             for(int z = 0; z < transicoes.size(); z++){
 	        	if(transicoes[z].getSimbolo() == '&' ){
 	        		if(transicoes[z].getOrigem() == estadoAtual){
@@ -71,6 +49,70 @@ class Subconjuntos{
 	        }
 	        return armazena;
 		};
+
+		vector<string> fechoEOficial(Automato automato, string estadoAtual){
+			vector<string> fechos;
+			vector<string> teste;
+			vector<Transicao> transicoes = automato.getTransicoes();
+			vector<string> recebe = fechosE(automato, estadoAtual);
+			//cout << " ESTADO ATAUL: " << estadoAtual  << endl;
+			fechos.push_back(estadoAtual);
+
+			for(int x = 0; x < recebe.size(); x++){
+				fechos.push_back(recebe[x]);
+			}
+			//int valor = fechosE (automato, estadoAtual).size();
+			for(int x = 0; x < recebe.size(); x++){
+				teste = fechosE(automato, recebe[x]);
+
+				for(int y = 0; y < teste.size(); y++){
+					//cout << "TESTES: " << teste[y] << endl;
+					fechos.push_back(teste[y]);
+					vector<string> util = fechosE(automato, teste[y]);
+
+					for(int z = 0; z < util.size(); z++){
+						fechos.push_back(util[z]);	
+					}
+				}
+			}
+			return fechos;
+		};
+
+		void imprimirFechos (Automato automato, string estadoAtual){
+			string estado;
+			estado = estadoAtual;
+			vector<string> resultado = fechoEOficial(automato, estadoAtual);
+			int flag = 0, x = 0;
+			//Remover elementos repetidos
+	        int tamanho =  resultado.size();
+	        for(int x = 0; x < tamanho; x++){
+	        	for(int y = x+1; y < tamanho; y++){
+	        		if(resultado[x] == resultado[y]){
+	        			int b = x;
+	        			while(b < tamanho){
+	        				resultado[b] = resultado[b+1];
+	        				b++;
+	        			}
+	        			tamanho--;
+	        			x = x-1;
+	        			y = y-1;
+	        		}
+	        	}
+	        }
+	        cout << " FECHOS-E (" << estado << "): ";
+	        cout << "{";
+            for(int x = 0; x < tamanho; x++){
+            	cout << resultado[x];
+            	if(flag < tamanho-1){
+            		cout << ",";
+            		flag++;
+            	}
+            }
+            cout << "}" << endl << endl;
+            cout << "--------------------------------------------------------" << endl;	
+		};
+
+
 		/*---------------------------------------------------------------------------*/
 		//Obtendo os fechosE
 		vector<string> fechoE(Automato automato, string estadoAtual){

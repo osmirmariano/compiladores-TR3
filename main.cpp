@@ -54,7 +54,9 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 for(int x = 0; x < automato.getNumeroEstados(); x++){
                     //subconj->fechoE(automato, automato.getEstado(x));
-                    subconj->fechoEOficial(automato, automato.getEstado(x));
+                    //subconj->fechoEOficial(automato, automato.getEstado(x));
+                    subconj->imprimirFechos(automato, automato.getEstado(x));
+                    
                 }
                 //cout << "FECHO: " << subconj->fechoE(automato, automato.getEstado(x));
                 break;
