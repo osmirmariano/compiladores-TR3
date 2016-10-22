@@ -209,7 +209,7 @@ class Posfixa{
             int verifica1 = 0, verifica2 = 0;
             for(int x = 0; x < expressao.length(); x++){
                 if(expressao[x] == '+' || expressao[x] == '.'){
-                    if(expressao[x-1] != ')' && expressao[x-1] != '.' && expressao[x-1] != '+' &&
+                    if(expressao[x-1] != '(' && expressao[x-1] != '.' && expressao[x-1] != '+' &&
                         expressao[x+1] != ')' && expressao[x+1] != '.' && expressao[x+1] != '+' &&
                         x+1 != expressao.length() && x-1 != -1){
                         verifica1 = 1;

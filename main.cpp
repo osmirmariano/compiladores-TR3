@@ -4,6 +4,7 @@
 #include "Thompson.cpp"
 #include "Automato.cpp"
 #include "Subconjuntos.cpp"
+#include "Afd.cpp"
 using namespace std;
 
 int main(int argc, char const *argv[]){
@@ -12,9 +13,11 @@ int main(int argc, char const *argv[]){
     Posfixa *pos = new Posfixa();
     Thompson *tho = new Thompson();
     Subconjuntos *subconj = new Subconjuntos();
+    Afd *afd = new Afd();
     Automato automato;
-    string estado;
 
+    string estado;
+    vector<string> conversao;   
     
     do{
         cout << "---------------------------------------------------" << endl;
@@ -52,19 +55,29 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 cout << "\t VISUALIZAÇÃO DOS FECHO-E" << endl;
                 cout << "---------------------------------------------------" << endl;
-                for(int x = 0; x < automato.getNumeroEstados(); x++){
-                    //subconj->fechoE(automato, automato.getEstado(x));
-                    //subconj->fechoEOficial(automato, automato.getEstado(x));
-                    subconj->imprimirFechos(automato, automato.getEstado(x));
-                    
+                if(automato.getNumeroEstados() == 0){
+                    cout << "---------------------------------------------------" << endl;
+                    cout << "   É NECESSÁRIO PRIMEIRAMENTE GERAR O AFN-E." << endl;
+                    cout << " \tPOR FAVOR, ESCOLHA A OPÇÃO 2" << endl;
+                    cout << "---------------------------------------------------" << endl;
                 }
-                //cout << "FECHO: " << subconj->fechoE(automato, automato.getEstado(x));
+                else{
+                    for(int x = 0; x < automato.getNumeroEstados(); x++){
+                        subconj->imprimirFechos(automato, automato.getEstado(x));
+                        if(x == 0){
+                            conversao = subconj->fechoEOficial(automato, automato.getEstado(x));
+                        }
+                    }
+                }
                 break;
+                    
             case 4:
                 cout << "---------------------------------------------------" << endl;
                 cout << "\t VISUALIZAÇÃO DO AFD" << endl;
                 cout << "---------------------------------------------------" << endl;
-                //CHAMAR FUNÇÃO AQUI PARA MOSTRAR O AUTOMATO FINITO DETERMINÍSTICO
+                //subconj->conversaoAFNE_AFD(automato, conversao);
+                afd->mostrarEstruturaAutomato(automato, conversao);
+                
                 break;
             case 5:
                 cout << "---------------------------------------------------" << endl;
