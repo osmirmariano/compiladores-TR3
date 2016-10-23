@@ -9,7 +9,7 @@ using namespace std;
 
 int main(int argc, char const *argv[]){
     int op;
-    string expressao, posTho;
+    string expressao, posTho, dados;
     Posfixa *pos = new Posfixa();
     Thompson *tho = new Thompson();
     Subconjuntos *subconj = new Subconjuntos();
@@ -77,6 +77,7 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 //subconj->conversaoAFNE_AFD(automato, conversao);
                 afd->mostrarEstruturaAutomato(automato, conversao);
+                //afd->imprimirAutomato(automato, dados);
                 
                 break;
             case 5:
@@ -91,6 +92,7 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 //posTho = pos->retorno();
                 subconj->mostrarEstruturaAutomato(automato);
+                afd->baseAFD(automato, conversao);
                 //tho->recebeAutomato(posTho);
                 break;
             case 0:

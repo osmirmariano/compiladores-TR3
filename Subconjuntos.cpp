@@ -100,6 +100,7 @@ class Subconjuntos{
 		void mostrarEstruturaAutomato(Automato automato){
             vector<Transicao> transicoes = automato.getTransicoes();
             vector<string> fechos;
+            cout << " \t AUTOMATO COM MOVIMENTO VAZIO" << endl;
 			cout << " ALFABETO: " << automato.getAlfabeto() << endl;
 			cout << " TAMANHO ALFABETO: " << automato.getTamanhoAlfabeto() << endl;
 			cout << " ESTADO INICIAL: " << automato.getEstadoInicial() << endl;
@@ -115,7 +116,7 @@ class Subconjuntos{
 			for(int x = 0; x < transicoes.size(); x++){
                 cout << " TRANSIÇÕES: " << transicoes[x].getOrigem() << " --> " << transicoes[x].getDestino() << endl;
 			}
-			//fechoE(automato);
+			cout << "------------------------------------------------------------" << endl;
 		};
 		
 };
