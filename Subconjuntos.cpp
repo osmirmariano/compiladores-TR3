@@ -31,6 +31,7 @@ class Subconjuntos{
 	        }
 	        return armazena;
 		};
+		
 
 		vector<string> fechoEOficial(Automato automato, string estadoAtual){
 			vector<string> fechos;

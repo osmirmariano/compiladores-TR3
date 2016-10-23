@@ -12,6 +12,14 @@ class Afd{
 		};
 		~Afd();
 
+		vector<string> uneEstados(vector<string> estados1) {
+			vector<string> estados;
+			for (int i = 0; i < estados1.size(); i++){
+				estados.push_back(estados1[i]);
+			}
+			return estados;
+		};
+
 		Automato baseAFD(Automato automato, vector<string> conversao) {
 			string estados, recebe, alfabetoAfd;
 			vector<string> afd;
@@ -24,60 +32,6 @@ class Afd{
 			automato.setAlfabeto(alfabetoAfd);
 			cout << " ALFABETO: " << automato.getAlfabeto() << endl;
 
-			/*------------------------------------GERANDO ESTADOS------------------------------*/
-			//Para Estados
-			for(int x = 0; x < conversao.size(); x++){
-				estados += conversao[x];
-			}
-			cout << "ESTADOS N LIMPOS: " << estados << endl;
-			afd.push_back(estados);
-			automato.setEstados(afd);
-			for(int x = 0; x < automato.getNumeroEstados(); x++){
-				cout << " ESTADOS: " << automato.getEstado(x) << endl;
-			}
-			cout << endl << endl;
-			estados.clear();
-			afd.clear();
-			cout << "ESTADOS LIMPOS: " << estados << endl;
-			for(int x = 0; x < conversao.size(); x++){
-				for(int y = 0; y < transicoes.size(); y++){
-					if(conversao[x] == transicoes[y].getOrigem()){
-						if(transicoes[y].getSimbolo() == 'a'){
-							estados += transicoes[y].getDestino();
-							cout << " TRANSIÇÕES: " << transicoes[y].getOrigem() << " --> " << transicoes[y].getDestino() << endl; 
-						}
-						/*else{
-							estados += transicoes[y].getDestino();
-							//cout << " TRANSIÇÕES: " << transicoes[y].getOrigem() << " --> " << transicoes[y].getDestino() << endl; 
-						}*/
-					}
-				}
-				afd.push_back(estados);
-				automato.setEstados(afd);
-				afd.clear();
-				estados.clear();
-			}
-
-			for(int x = 0; x < conversao.size(); x++){
-				for(int y = 0; y < transicoes.size(); y++){
-					if(conversao[x] == transicoes[y].getOrigem()){
-						if(transicoes[y].getSimbolo() == 'b'){
-							estados += transicoes[y].getDestino();
-							cout << " TRANSIÇÕES: " << transicoes[y].getOrigem() << " --> " << transicoes[y].getDestino() << endl; 
-						}
-						/*else{
-							estados += transicoes[y].getDestino();
-							//cout << " TRANSIÇÕES: " << transicoes[y].getOrigem() << " --> " << transicoes[y].getDestino() << endl; 
-						}*/
-					}
-				}
-				afd.push_back(estados);
-				automato.setEstados(afd);
-				afd.clear();
-				estados.clear();
-			}
-			
-			/*------------------------------------GERANDO ESTADOS------------------------------*/
 
 
 			//Para Estado Inicial
@@ -101,46 +55,84 @@ class Afd{
 		};
 
 		void mostrarEstruturaAutomato(Automato automato, vector<string> conversao){
-			/*vector<string> afdFinal;
+			vector<string> afdFinal;
 			vector<string> afd;
-			string estados;
-			vector<Transicao> transicoes = automato.getTransicoes();*/
-
+			string estados, recebe, alfabetoAfd;
+			vector<Transicao> transicoes = automato.getTransicoes();
 			baseAFD(automato, conversao);
 
-			/*//Para Estados
+			recebe = automato.getAlfabeto();
+			for(int x = 0; x < recebe.length()-1; x++){
+				alfabetoAfd += recebe[x];
+			}
+			automato.setAlfabeto(alfabetoAfd);
+			cout << " ALFABETO: " << automato.getAlfabeto() << endl;
+
+
+			/*------------------------------------GERANDO ESTADOS------------------------------*/
+			//Para Estados
 			for(int x = 0; x < conversao.size(); x++){
 				estados += conversao[x];
 			}
 			afd.push_back(estados);
 			automato.setEstados(afd);
+			//cout << "Estados: " << automato.getEstado() << endl;
 			for(int x = 0; x < automato.getNumeroEstados(); x++){
 				cout << " ESTADOS: " << automato.getEstado(x) << endl;
 			}
+			//automato.adicionaEstados(uneEstados(automato.getEstados()));
+			automato.setEstados(automato.getEstados());
+			//automato.setEstados(uneEstados(a.getEstados(), b.getEstados()));
 
+			cout << "QUANT ESTADOS: "  << automato.getNumeroEstados() << endl;
+			cout << endl << endl;
+			estados.clear();
+			afd.clear();
+			
 			for(int x = 0; x < conversao.size(); x++){
-				cout << "OI 1" << endl;
 				for(int y = 0; y < transicoes.size(); y++){
-					if(transicoes[y].getOrigem() == conversao[x]){
-						cout << "OI 2" << endl;
-						cout << "SIMBOLO: " << transicoes[x].getSimbolo() << endl;
-                
-						if(transicoes[y].getSimbolo() == 'a'){
-							cout << "OI 3" << endl;
-							cout << " TRANSIÇÕES: " << transicoes[y].getOrigem() << " --> " << transicoes[y].getDestino() << endl;
-							afdFinal.push_back(transicoes[y].getDestino());
-							estados += afdFinal[y];
+					if(conversao[x] == transicoes[y].getOrigem()){
+						for(int z = 0; z < alfabetoAfd.length(); z++){
+							if(transicoes[y].getSimbolo() == alfabetoAfd[z]){
+								estados += transicoes[y].getDestino();
+								cout << " TRANSIÇÕES: " << transicoes[y].getOrigem() << " --> " << transicoes[y].getDestino() << endl; 
+							}
 						}
 					}
 				}
+			}
+			cout << "ESTADOSSSS: " << estados << endl;
+			afd.push_back(estados);
+			automato.setEstados(afd);
+			//automato.adicionaEstados(automato.getEstados());
+			automato.setEstados(automato.getEstados());
+			for(int x = 0; x < automato.getNumeroEstados(); x++){
+				cout << " ESTADOS FINAL: " << automato.getEstado(x) << endl;
+			}
+
+			/*afd.clear();
+			estados.clear();
+			//automato.setEstados(uneEstados(automato.getEstados()));
+
+			for(int x = 0; x < conversao.size(); x++){
+				for(int y = 0; y < transicoes.size(); y++){
+					if(conversao[x] == transicoes[y].getOrigem()){
+						if(transicoes[y].getSimbolo() == 'b'){
+							estados += transicoes[y].getDestino();
+							cout << " TRANSIÇÕES: " << transicoes[y].getOrigem() << " --> " << transicoes[y].getDestino() << endl; 
+						}
+					}
+				}
+				cout << "ESTADOSSSS: " << estados << endl;
 				afd.push_back(estados);
 				automato.setEstados(afd);
-			}
-			for(int x = 0; x < automato.getNumeroEstados(); x++){
-				cout << " ESTADOS: " << automato.getEstado(x) << endl;
+				//automato.adicionaEstados(automato.getEstados());
+				automato.setEstados(automato.getEstados());
 			}*/
-			
+			//automato.setEstados(uneEstados(automato.getEstados()));
+			cout << endl << endl;
+			/*------------------------------------GERANDO ESTADOS------------------------------*/
 		};
-			
+		
 };
 #endif // AFD_H
