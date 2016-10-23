@@ -77,7 +77,7 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 //subconj->conversaoAFNE_AFD(automato, conversao);
                 subconj->mostrarEstruturaAutomato(automato, conversao);
-                //afd->imprimirAutomato(automato, dados);
+                //subconj->imprimirAutomato(automato, dados);
                 
                 break;
             case 5:

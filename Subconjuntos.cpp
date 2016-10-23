@@ -7,6 +7,8 @@ using namespace std;
 
 class Subconjuntos{
 	public:
+		vector<string> recebeu;
+	public:
 		Subconjuntos(){
 			void mostrarEstruturaAutomato(Automato automato);
 			vector<string> fechosE(vector<string> estadoAtual);
@@ -14,9 +16,6 @@ class Subconjuntos{
 			void imprimirFechos (Automato automato, string estadoAtual);
 		};
 		~Subconjuntos();
-
-
-		
 
 		vector<string> fechosE(Automato automato, string estadoAtual){
 			vector<string> armazena;
@@ -194,10 +193,10 @@ class Subconjuntos{
 					for(int z = 0; z < transicoes.size(); z++){
 						if(conversao[y] == transicoes[z].getOrigem()){
 							if(transicoes[z].getSimbolo() == dados[x]){
-								imprimirFechos(automato, transicoes[z].getDestino());
-								vector<string> recebeu;
+								//imprimirFechos(automato, transicoes[z].getDestino());
 								for(int a = 0; a < fechoEOficial(automato, transicoes[z].getDestino()).size(); a++){
 									recebeu = fechoEOficial(automato, transicoes[z].getDestino());
+									//cout << " RECEBE: " << recebeu[o];
 									estados += recebeu[o];
 									o++;
 								}
@@ -212,40 +211,79 @@ class Subconjuntos{
 				estados.clear();
 			}
 			automato.setEstados(uniaoEstados);
+			
 			cout << "QUANT ESTADOS: "  << automato.getNumeroEstados() << endl;
 			for(int x = 0; x < automato.getNumeroEstados(); x++){
 				cout << "NOVOS ESTADOS: " << automato.getEstado(x) << endl;
-			}
-			cout << endl << endl;
-			verificarRepetidos(automato);
-			//imprimirAutomato(automato, dados);
-			return automato;
-		};
-
-		void verificarRepetidos(Automato automato){
-			for(int x = 0; x < automato.getNumeroEstados(); x++){
 				for(int y = x+1; y < automato.getNumeroEstados(); y++){
 					if(automato.getEstado(x) != automato.getEstado(y)){
-						cout << "NÃO TEM REPETIDOS " << endl;
+						automato.setEstados(uniaoEstados);
+					}
+					else{
+						cout << "OI OSMIR MARIANO" << endl;
+						break;
 					}
 				}
 			}
-		}
+			cout << endl << endl;
+			//verificarRepetidos(automato);
+			//imprimirAutomato(automato, dados);
+			imprimirAutomato(automato, dados);
+			return automato;
+		};
+
+		void automatoAFD(Automato automato, vector<string> itensEstados){
+			// if(verificarRepetidos(automato) == true){
+			// 	for(int x = 0; x < automato.getNumeroEstados(); x++){
+			// 		mostrarEstruturaAutomato(automato, automato.getEstado(x))
+			// 	}
+			// }
+		};
+
+		// bool verificarRepetidos(Automato automato){
+		// 	cout << "TMA: " <<  automato.getNumeroEstados() << endl;
+		// 	for(int x = 0; x < automato.getNumeroEstados(); x++){
+		// 		for(int y = x+1; y < automato.getNumeroEstados(); y++){
+		// 			cout << "ESTADOS: " << automato.getEstado(x) << endl;
+		// 			if(automato.getEstado(x) != automato.getEstado(y)){
+		// 				return true;
+		// 			}
+		// 			else
+		// 				return false;
+		// 		}
+		// 	}
+		// }
 
 		void renomear(Automato automato){
 
-		}
-		// void imprimirAutomato(Automato automato, string dados){
-		// 	cout << endl << "----------------------------------------------------------------------" << endl;
-		// 	cout << " ESTADOS" ;
-		// 	for (int x = 0; x < automato.getTamanhoAlfabeto()-1; x++){
-		// 		cout << "    |    " << dados[x];
-		// 	}
-		// 	cout << endl << "----------------------------------------------------------------------" << endl;
-		// 	for (int x = 0; x < automato.getNumeroEstados(); x++) {
-				
-		// 		cout << endl << "----------------------------------------------------------------------" << endl;
-		// 	}
-		// 	cout << endl;
-		// };
+		};
+
+		void imprimirAutomato(Automato automato, string dados){
+			vector<Transicao> transicoes = automato.getTransicoes();
+			string armazena;
+			cout << endl << "----------------------------------------------------------------------" << endl;
+			cout << " ESTADOS" ;
+			for (int x = 0; x < automato.getTamanhoAlfabeto()-1; x++){
+				cout << "                 |    " << dados[x];
+			}
+			cout << endl << "----------------------------------------------------------------------" << endl;
+			for (int x = 0; x < automato.getNumeroEstados(); x++) {
+				if(x == 0)
+					cout << " ->" << automato.getEstado(x) << "          |";
+				else
+					cout << "  " << automato.getEstado(x) << "   |";
+				cout << endl << "----------------------------------------------------------------------" << endl;
+
+				for (int  j = 0; j < automato.getTamanhoAlfabeto()-1; j++) {
+					//teste.clear();
+					for (int k = 0; k <  transicoes.size(); k++) {
+                        armazena = automato.getAlfabeto();
+                        if(armazena[j] == transicoes[k].getSimbolo()){
+							
+                        }
+					}
+				}
+			}
+			cout << endl;
+		};
 };
