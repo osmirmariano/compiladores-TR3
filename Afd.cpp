@@ -61,12 +61,12 @@ class Afd{
 			vector<Transicao> transicoes = automato.getTransicoes();
 			baseAFD(automato, conversao);
 
-			recebe = automato.getAlfabeto();
+			/*recebe = automato.getAlfabeto();
 			for(int x = 0; x < recebe.length()-1; x++){
 				alfabetoAfd += recebe[x];
 			}
 			automato.setAlfabeto(alfabetoAfd);
-			cout << " ALFABETO: " << automato.getAlfabeto() << endl;
+			cout << " ALFABETO: " << automato.getAlfabeto() << endl;*/
 
 
 			/*------------------------------------GERANDO ESTADOS------------------------------*/
@@ -89,26 +89,42 @@ class Afd{
 			estados.clear();
 			afd.clear();
 			
-			for(int x = 0; x < conversao.size(); x++){
-				for(int y = 0; y < transicoes.size(); y++){
-					if(conversao[x] == transicoes[y].getOrigem()){
-						for(int z = 0; z < alfabetoAfd.length(); z++){
-							if(transicoes[y].getSimbolo() == alfabetoAfd[z]){
-								estados += transicoes[y].getDestino();
-								cout << " TRANSIÇÕES: " << transicoes[y].getOrigem() << " --> " << transicoes[y].getDestino() << endl; 
+			string dados = automato.getAlfabeto();
+			for(int x = 0; x < automato.getTamanhoAlfabeto()-1; x++){
+				for(int y = 0; y < conversao.size(); y++){
+					for(int z = 0; z < transicoes.size(); z++){
+						if(conversao[y] == transicoes[z].getOrigem()){
+							if(transicoes[z].getSimbolo() == dados[x]){
+								estados += transicoes[z].getDestino();
+								cout << " -> TRANSIÇÕES: " << transicoes[z].getOrigem() << " --> " << transicoes[z].getDestino() << endl; 
 							}
 						}
 					}
 				}
+				cout << "ESTADOSSSS: " << estados << endl;
+				afd.push_back(estados);
+				automato.setEstados(afd);
+				automato.setEstados(uneEstados(automato.getEstados()));
+				afd.clear();
+				estados.clear();
 			}
-			cout << "ESTADOSSSS: " << estados << endl;
-			afd.push_back(estados);
-			automato.setEstados(afd);
+
+			/*for(int x = 0; x < conversao.size(); x++){
+				for(int y = 0; y < transicoes.size(); y++){
+					if(conversao[x] == transicoes[y].getOrigem()){
+						if(transicoes[y].getSimbolo() == alfabetoAfd[z]){
+							estados += transicoes[y].getDestino();
+							cout << " TRANSIÇÕES: " << transicoes[y].getOrigem() << " --> " << transicoes[y].getDestino() << endl; 
+						}
+					}
+				}
+			}*/
+			
 			//automato.adicionaEstados(automato.getEstados());
-			automato.setEstados(automato.getEstados());
-			for(int x = 0; x < automato.getNumeroEstados(); x++){
-				cout << " ESTADOS FINAL: " << automato.getEstado(x) << endl;
-			}
+			//automato.setEstados(automato.getEstados());
+			// for(int x = 0; x < automato.getNumeroEstados(); x++){
+			// 	cout << " ESTADOS FINAL: " << automato.getEstado(x) << endl;
+			// }
 
 			/*afd.clear();
 			estados.clear();
