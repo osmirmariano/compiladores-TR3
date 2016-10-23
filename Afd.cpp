@@ -122,6 +122,7 @@ class Afd{
 			}
 			cout << endl << "----------------------------------------------------------------------" << endl;
 			for (int x = 0; x < automato.getNumeroEstados(); x++) {
+				if()
 				/*origem = automato.getEstado(x);
 				if (automato.getEstado(x) == automato.getEstadoInicial()){
 					cout << "  ->" << origem << "      |";
@@ -151,10 +152,10 @@ class Afd{
 					else{
                         cout << "   {" + teste + "}  |";
 					}
-				}
+				}*/
 				cout << endl << "----------------------------------------------------------------------" << endl;
 			}
-			cout << endl;*/
+			cout << endl;
 		};
 		
 };

@@ -4,7 +4,7 @@
 #include "Thompson.cpp"
 #include "Automato.cpp"
 #include "Subconjuntos.cpp"
-#include "Afd.cpp"
+//#include "Afd.cpp"
 using namespace std;
 
 int main(int argc, char const *argv[]){
@@ -13,7 +13,7 @@ int main(int argc, char const *argv[]){
     Posfixa *pos = new Posfixa();
     Thompson *tho = new Thompson();
     Subconjuntos *subconj = new Subconjuntos();
-    Afd *afd = new Afd();
+    //Afd *afd = new Afd();
     Automato automato;
 
     string estado;
@@ -76,7 +76,7 @@ int main(int argc, char const *argv[]){
                 cout << "\t VISUALIZAÇÃO DO AFD" << endl;
                 cout << "---------------------------------------------------" << endl;
                 //subconj->conversaoAFNE_AFD(automato, conversao);
-                afd->mostrarEstruturaAutomato(automato, conversao);
+                subconj->mostrarEstruturaAutomato(automato, conversao);
                 //afd->imprimirAutomato(automato, dados);
                 
                 break;
@@ -92,7 +92,7 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 //posTho = pos->retorno();
                 subconj->mostrarEstruturaAutomato(automato);
-                afd->baseAFD(automato, conversao);
+                //afd->baseAFD(automato, conversao);
                 //tho->recebeAutomato(posTho);
                 break;
             case 0:
