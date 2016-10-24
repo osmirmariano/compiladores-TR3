@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "Transicao.cpp"
+#include "Transicaoafd.cpp"
 
 
 using namespace std;
@@ -14,6 +15,7 @@ class Automato {
 		string alfabeto;
 		vector<string> estados;
 		vector<Transicao> transicoes;
+		vector<Transicaoafd> transicoesafd;
 		string estadoInicial;
 		string estadoFinal;
 
@@ -40,6 +42,9 @@ class Automato {
 			int getNumeroEstados();
 			int getNumeroTransicoes();
 			int getTamanhoAlfabeto();
+			vector<Transicaoafd> getTransicoesafd();
+			void setTransicaoafd(string origem, string destino, char simbolo);
+			void setTransicoesafd(vector<Transicaoafd> transicoes);
 		};
 
 		/*-----------------------------FUNÇÃO SETALFABETO--------------------------------*/
@@ -75,6 +80,23 @@ class Automato {
 			transicao.setSimbolo(simbolo);
 			this->transicoes.push_back(transicao);
 		};
+
+		//Trecho para AFD
+		/*-----------------------------FUNÇÃO SETTRANSIÇÕES------------------------------*/
+		void setTransicoesafd(vector<Transicaoafd> transicoesafd) {
+			this->transicoesafd = transicoesafd;
+		};
+
+		/*-----------------------------FUNÇÃO SETTRANSIÇÕES------------------------------*/
+		void setTransicaoafd(string origem, string destino, char simbolo) {
+			Transicaoafd transicao;
+			transicao.setOrigem(origem);
+			transicao.setDestino(destino);
+			transicao.setSimbolo(simbolo);
+			this->transicoesafd.push_back(transicao);
+		};
+
+		//Trecho para AFD
 
 		/*-----------------------------FUNÇÃO SETESTADO INICIAL--------------------------*/
 		void setEstadoInicial(string estadoInicial) {
@@ -117,6 +139,13 @@ class Automato {
 			}
 		};
 
+		/*-----------------------------FUNÇÃO ADICIONAR TRANSIÇÕES------------------------*/
+		void adicionaTransicoesafd(vector<Transicaoafd> transicoes) {
+			for (int i = 0; i < transicoes.size(); i++){
+				this->transicoesafd.push_back(transicoes[i]);
+			}
+		};
+
 		/*--------------------------------FUNÇÃO GETALFABETO------------------------------*/
 		string getAlfabeto() {
 			return alfabeto;
@@ -137,6 +166,10 @@ class Automato {
 			return transicoes;
 		};
 
+		/*--------------------------------FUNÇÃO GETTRANSIÇÕES-----------------------------*/
+		vector<Transicaoafd> getTransicoesafd() {
+			return transicoesafd;
+		};
 		/*--------------------------------FUNÇÃO GETESTADO INICAL--------------------------*/
 		string getEstadoInicial() {
 			return estadoInicial;
