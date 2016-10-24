@@ -132,53 +132,53 @@ class Subconjuntos{
 			}
 			return transicoes;
 		};
-		// Automato baseAFD(Automato automato, vector<string> conversao) {
-		// 	string estados, recebe, alfabetoAfd;
-		// 	vector<string> afd;
-		// 	vector<Transicao> transicoes = automato.getTransicoes();
-		// 	//Para Alfabeto
-		// 	cout << " \t AUTOMATO FINITO DETERMINISTICO" << endl;
-		// 	recebe = automato.getAlfabeto();
-		// 	for(int x = 0; x < recebe.length()-1; x++){
-		// 		alfabetoAfd += recebe[x];
-		// 	}
-		// 	automato.setAlfabeto(alfabetoAfd);
-		// 	cout << " ALFABETO: " << automato.getAlfabeto() << endl;
-		// 	cout << " TAMANHO ALFABETO: " << automato.getTamanhoAlfabeto() << endl;
+		/*Automato baseAFD(Automato automato, vector<string> conversao) {
+			string estados, recebe, alfabetoAfd;
+			vector<string> afd;
+			vector<Transicao> transicoes = automato.getTransicoes();
+			//Para Alfabeto
+			cout << " \t AUTOMATO FINITO DETERMINISTICO" << endl;
+			recebe = automato.getAlfabeto();
+			for(int x = 0; x < recebe.length()-1; x++){
+				alfabetoAfd += recebe[x];
+			}
+			automato.setAlfabeto(alfabetoAfd);
+			cout << " ALFABETO: " << automato.getAlfabeto() << endl;
+			cout << " TAMANHO ALFABETO: " << automato.getTamanhoAlfabeto() << endl;
 
-		// 	for(int x = 0; x < conversao.size(); x++){
-		// 		estados += conversao[x];
-		// 	}
-		// 	afd.push_back(estados);
-		// 	automato.setEstados(afd);
+			for(int x = 0; x < conversao.size(); x++){
+				estados += conversao[x];
+			}
+			afd.push_back(estados);
+			automato.setEstados(afd);
 
-		// 	//Para Estado Inicial
-		// 	automato.setEstadoInicial(afd[0]);
-		// 	cout << " ESTADO INICIAL: " << automato.getEstadoInicial() << endl;
+			//Para Estado Inicial
+			automato.setEstadoInicial(afd[0]);
+			cout << " ESTADO INICIAL: " << automato.getEstadoInicial() << endl;
 
-		// 	//Para Transição
-		// 	string dados = automato.getAlfabeto();
-		// 	for(int x = 0; x < automato.getTamanhoAlfabeto()-1; x++){
-		// 		for(int y = 0; y < conversao.size(); y++){
-		// 			for(int z = 0; z < transicoes.size(); z++){
-		// 				if(conversao[y] == transicoes[z].getOrigem()){
-		// 					if(transicoes[z].getSimbolo() == dados[x]){
-		// 						estados += transicoes[z].getDestino();
-		// 						cout << " TRANSIÇÕES: " << transicoes[z].getOrigem() << " --> " << transicoes[z].getDestino() << endl;
-		// 					}
-		// 				}
-		// 			}
-		// 		}
-		// 		//cout << "ESTADOS: " << estados << endl;
-		// 		afd.push_back(estados);
-		// 		automato.setEstados(afd);
-		// 		//uneEstados(afd);
-		// 		//automato.setEstados(uneEstados(automato.getEstados()));
-		// 		afd.clear();
-		// 		estados.clear();
-		// 	}
-		// 	return automato;
-		// };
+			//Para Transição
+			string dados = automato.getAlfabeto();
+			for(int x = 0; x < automato.getTamanhoAlfabeto()-1; x++){
+				for(int y = 0; y < conversao.size(); y++){
+					for(int z = 0; z < transicoes.size(); z++){
+						if(conversao[y] == transicoes[z].getOrigem()){
+							if(transicoes[z].getSimbolo() == dados[x]){
+								estados += transicoes[z].getDestino();
+								cout << " TRANSIÇÕES: " << transicoes[z].getOrigem() << " --> " << transicoes[z].getDestino() << endl;
+							}
+						}
+					}
+				}
+				//cout << "ESTADOS: " << estados << endl;
+				afd.push_back(estados);
+				automato.setEstados(afd);
+				//uneEstados(afd);
+				//automato.setEstados(uneEstados(automato.getEstados()));
+				afd.clear();
+				estados.clear();
+			}
+			return automato;
+		};*/
 
 		Automato mostrarEstruturaAutomato(Automato automato, vector<string> conversao){
 			vector<string> afdFinal;
@@ -221,10 +221,10 @@ class Subconjuntos{
 						if(conversao[y] == transicoes[a].getOrigem()){
 							if(transicoes[a].getSimbolo() == dados[x]){
 								char ajuda;
+								int cont = 0, ocm = 0;
 								ajuda = dados[x];
 								op2 = estados;
 								automato.setTransicaoafd(op1, op2, ajuda);
-								cout << "SIMBOLO: " << dados[x] << endl;
 							}
 						}
 					}
@@ -240,7 +240,7 @@ class Subconjuntos{
 							
 			cout << "TAMANHO: " << transicaoafd.size() << endl;
 			for(int b = 0; b < transicaoafd.size(); b++){
-                cout << " TRANSIÇÕES: " << transicaoafd[b].getOrigem() << " --> " << transicaoafd[b].getDestino() << endl;
+                cout << transicaoafd[b].getSimbolo() << " - TRANSIÇÕES: " << transicaoafd[b].getOrigem() << " --> " << transicaoafd[b].getDestino() << endl;
 			}
 
 			cout << "QUANT ESTADOS: "  << automato.getNumeroEstados() << endl;
@@ -257,16 +257,22 @@ class Subconjuntos{
 				}
 			}
 			cout << endl << endl;
+			//automatoAFD(automato);
 			imprimirAutomato(automato, dados);
 			return automato;
 		};
+		void primeiroItem(Automato automato){
 
-		void automatoAFD(Automato automato, vector<string> itensEstados){
-			// if(verificarRepetidos(automato) == true){
-			// 	for(int x = 0; x < automato.getNumeroEstados(); x++){
-			// 		mostrarEstruturaAutomato(automato, automato.getEstado(x))
-			// 	}
-			// }
+		};
+		
+		void automatoAFD(Automato automato){
+			vector<string> std;
+			for(int x = 0; x < automato.getNumeroEstados(); x++){
+				cout << "ESTADOS: " << automato.getEstado(x) << endl;
+				std.push_back(automato.getEstado(x+1));
+				mostrarEstruturaAutomato(automato, std);
+				std.clear();
+			}
 		};
 
 		// bool verificarRepetidos(Automato automato){
@@ -307,8 +313,7 @@ class Subconjuntos{
 
 				for (int  j = 0; j < automato.getTamanhoAlfabeto()-1; j++) {
 					for (int k = 0; k <  transicaoafd.size(); k++) {
-                        /*armazena = dados;
-                        if(armazena[j] == transicaoafd[k].getSimbolo()){
+                        /*if(dados[j] == transicaoafd[k].getSimbolo()){
                         	cout << transicaoafd[k].getDestino();
                         }*/
 					}
