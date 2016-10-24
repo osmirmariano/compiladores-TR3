@@ -111,31 +111,11 @@ class Subconjuntos{
 			cout << "------------------------------------------------------------" << endl;
 		};
 
-		vector<string> uneEstados(vector<string> estados1) {
-			vector<string> estados;
-			for (int i = 0; i < estados1.size(); i++){
-				estados.push_back(estados1[i]);
-			}
-			for(int x = 0; x < estados.size(); x++){
-				cout << "Estados: " << estados[x] << endl;
-			}
-			return estados;
-		};
-
-		vector<Transicaoafd> uneTransicoes(vector<Transicaoafd> transicoes1, vector<Transicaoafd> transicoes2) {
-			vector<Transicaoafd> transicoes;
-			for (int i = 0; i < transicoes1.size(); i++){
-				transicoes.push_back(transicoes1[i]);
-			}
-			for (int i = 0; i < transicoes2.size(); i++){
-				transicoes.push_back(transicoes2[i]);
-			}
-			return transicoes;
-		};
-		/*Automato baseAFD(Automato automato, vector<string> conversao) {
+		void baseAFD(Automato automato, vector<string> conversao) {
 			string estados, recebe, alfabetoAfd;
 			vector<string> afd;
 			vector<Transicao> transicoes = automato.getTransicoes();
+			vector<Transicaoafd> transicaoafd = automato.getTransicoesafd();
 			//Para Alfabeto
 			cout << " \t AUTOMATO FINITO DETERMINISTICO" << endl;
 			recebe = automato.getAlfabeto();
@@ -146,39 +126,16 @@ class Subconjuntos{
 			cout << " ALFABETO: " << automato.getAlfabeto() << endl;
 			cout << " TAMANHO ALFABETO: " << automato.getTamanhoAlfabeto() << endl;
 
-			for(int x = 0; x < conversao.size(); x++){
-				estados += conversao[x];
-			}
-			afd.push_back(estados);
-			automato.setEstados(afd);
-
 			//Para Estado Inicial
 			automato.setEstadoInicial(afd[0]);
 			cout << " ESTADO INICIAL: " << automato.getEstadoInicial() << endl;
 
 			//Para Transição
-			string dados = automato.getAlfabeto();
-			for(int x = 0; x < automato.getTamanhoAlfabeto()-1; x++){
-				for(int y = 0; y < conversao.size(); y++){
-					for(int z = 0; z < transicoes.size(); z++){
-						if(conversao[y] == transicoes[z].getOrigem()){
-							if(transicoes[z].getSimbolo() == dados[x]){
-								estados += transicoes[z].getDestino();
-								cout << " TRANSIÇÕES: " << transicoes[z].getOrigem() << " --> " << transicoes[z].getDestino() << endl;
-							}
-						}
-					}
-				}
-				//cout << "ESTADOS: " << estados << endl;
-				afd.push_back(estados);
-				automato.setEstados(afd);
-				//uneEstados(afd);
-				//automato.setEstados(uneEstados(automato.getEstados()));
-				afd.clear();
-				estados.clear();
+			for(int x = 0; x < transicaoafd.size(); x++){
+                cout << " TRANSIÇÕES: " << transicaoafd[x].getOrigem() << " --> " << transicaoafd[x].getDestino() << endl;
 			}
-			return automato;
-		};*/
+		};
+	
 
 		Automato mostrarEstruturaAutomato(Automato automato, vector<string> conversao){
 			vector<string> afdFinal;
@@ -238,20 +195,16 @@ class Subconjuntos{
 			vector<Transicaoafd> transicaoafd = automato.getTransicoesafd();
 			//automato.adicionaTransicoesafd(automato.getTransicoesafd());
 							
-			cout << "TAMANHO: " << transicaoafd.size() << endl;
 			for(int b = 0; b < transicaoafd.size(); b++){
                 cout << transicaoafd[b].getSimbolo() << " - TRANSIÇÕES: " << transicaoafd[b].getOrigem() << " --> " << transicaoafd[b].getDestino() << endl;
 			}
 
-			cout << "QUANT ESTADOS: "  << automato.getNumeroEstados() << endl;
 			for(int x = 0; x < automato.getNumeroEstados(); x++){
-				cout << "NOVOS ESTADOS: " << automato.getEstado(x) << endl;
 				for(int y = x+1; y < automato.getNumeroEstados(); y++){
 					if(automato.getEstado(x) != automato.getEstado(y)){
 						automato.setEstados(uniaoEstados);
 					}
 					else{
-						cout << "OI OSMIR MARIANO" << endl;
 						break;
 					}
 				}
@@ -275,19 +228,6 @@ class Subconjuntos{
 			}
 		};
 
-		// bool verificarRepetidos(Automato automato){
-		// 	cout << "TMA: " <<  automato.getNumeroEstados() << endl;
-		// 	for(int x = 0; x < automato.getNumeroEstados(); x++){
-		// 		for(int y = x+1; y < automato.getNumeroEstados(); y++){
-		// 			cout << "ESTADOS: " << automato.getEstado(x) << endl;
-		// 			if(automato.getEstado(x) != automato.getEstado(y)){
-		// 				return true;
-		// 			}
-		// 			else
-		// 				return false;
-		// 		}
-		// 	}
-		// }
 
 		void renomear(Automato automato){
 
@@ -313,12 +253,39 @@ class Subconjuntos{
 
 				for (int  j = 0; j < automato.getTamanhoAlfabeto()-1; j++) {
 					for (int k = 0; k <  transicaoafd.size(); k++) {
-                        /*if(dados[j] == transicaoafd[k].getSimbolo()){
-                        	cout << transicaoafd[k].getDestino();
-                        }*/
+						if(automato.getEstado(x) == transicaoafd[k].getOrigem()){
+	                        if(dados[j] == transicaoafd[k].getSimbolo()){
+	                        	//cout << transicaoafd[k].getDestino() << " | ";
+	                        }
+						}
 					}
 				}
 			}
 			cout << endl;
+		};
+
+		void baseAFD(Automato automato) {
+			string estados, recebe, alfabetoAfd;
+			vector<string> afd;
+			vector<Transicao> transicoes = automato.getTransicoes();
+			vector<Transicaoafd> transicaoafd = automato.getTransicoesafd();
+			//Para Alfabeto
+			cout << " \t AUTOMATO FINITO DETERMINISTICO" << endl;
+			recebe = automato.getAlfabeto();
+			for(int x = 0; x < recebe.length()-1; x++){
+				alfabetoAfd += recebe[x];
+			}
+			automato.setAlfabeto(alfabetoAfd);
+			cout << " ALFABETO: " << automato.getAlfabeto() << endl;
+			cout << " TAMANHO ALFABETO: " << automato.getTamanhoAlfabeto() << endl;
+
+			//Para Estado Inicial
+			automato.setEstadoInicial(afd[0]);
+			cout << " ESTADO INICIAL: " << automato.getEstadoInicial() << endl;
+
+			//Para Transição
+			for(int x = 0; x < transicaoafd.size(); x++){
+                cout << " TRANSIÇÕES: " << transicaoafd[x].getOrigem() << " --> " << transicaoafd[x].getDestino() << endl;
+			}
 		};
 };

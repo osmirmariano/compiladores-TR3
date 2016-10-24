@@ -92,6 +92,7 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 //posTho = pos->retorno();
                 subconj->mostrarEstruturaAutomato(automato);
+                subconj->baseAFD(automato, conversao);
                 //afd->baseAFD(automato, conversao);
                 //tho->recebeAutomato(posTho);
                 break;
