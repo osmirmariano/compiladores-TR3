@@ -9,6 +9,7 @@ using namespace std;
 class Subconjuntos{
 	public:
 		vector<string> recebeu;
+		vector<string> armazenaEstados;
 	public:
 		Subconjuntos(){
 			void mostrarEstruturaAutomato(Automato automato);
@@ -18,6 +19,7 @@ class Subconjuntos{
 		};
 		~Subconjuntos();
 
+		/*-----------------------------FUNÇÃO FECHOSE---------------------------------*/
 		vector<string> fechosE(Automato automato, string estadoAtual){
 			vector<string> armazena;
             vector<Transicao> transicoes = automato.getTransicoes();
@@ -32,7 +34,7 @@ class Subconjuntos{
 	        return armazena;
 		};
 
-
+		/*-----------------------------FUNÇÃO FECHOSE OFICIAL----------------------------*/
 		vector<string> fechoEOficial(Automato automato, string estadoAtual){
 			vector<string> fechos;
 			vector<string> teste;
@@ -56,6 +58,8 @@ class Subconjuntos{
 			return fechos;
 		};
 
+		
+		/*---------------------------FUNÇÃO PARA IMPRIMIR FECHO E ------------------------*/
 		void imprimirFechos (Automato automato, string estadoAtual){
 			string estado;
 			estado = estadoAtual;
@@ -88,56 +92,10 @@ class Subconjuntos{
             }
             cout << "}" << endl;
 		};
-
-		void mostrarEstruturaAutomato(Automato automato){
-            vector<Transicao> transicoes = automato.getTransicoes();
-            vector<string> fechos;
-            cout << " \t AUTOMATO COM MOVIMENTO VAZIO" << endl;
-			cout << " ALFABETO: " << automato.getAlfabeto() << endl;
-			cout << " TAMANHO ALFABETO: " << automato.getTamanhoAlfabeto() << endl;
-			cout << " ESTADO INICIAL: " << automato.getEstadoInicial() << endl;
-			cout << " ESTADO FINAL: " << automato.getEstadoFinal() << endl;
-			cout << " ESTADOS: ";
-			for(int x = 0; x < automato.getNumeroEstados(); x++){
-                cout << automato.getEstado(x) << " ";
-			}
-			cout << endl;
-            cout << " QUANT ESTADOS: " << automato.getNumeroEstados() << endl;
-            cout << " QUANT TRANSIÇÕES: " << automato.getNumeroTransicoes() << endl;
-            cout << "\t TRANSIÇÕES: " << endl;
-			for(int x = 0; x < transicoes.size(); x++){
-                cout << " TRANSIÇÕES: " << transicoes[x].getOrigem() << " --> " << transicoes[x].getDestino() << endl;
-			}
-			cout << "------------------------------------------------------------" << endl;
-		};
-
-		void baseAFD(Automato automato, vector<string> conversao) {
-			string estados, recebe, alfabetoAfd;
-			vector<string> afd;
-			vector<Transicao> transicoes = automato.getTransicoes();
-			vector<Transicaoafd> transicaoafd = automato.getTransicoesafd();
-			//Para Alfabeto
-			cout << " \t AUTOMATO FINITO DETERMINISTICO" << endl;
-			recebe = automato.getAlfabeto();
-			for(int x = 0; x < recebe.length()-1; x++){
-				alfabetoAfd += recebe[x];
-			}
-			automato.setAlfabeto(alfabetoAfd);
-			cout << " ALFABETO: " << automato.getAlfabeto() << endl;
-			cout << " TAMANHO ALFABETO: " << automato.getTamanhoAlfabeto() << endl;
-
-			//Para Estado Inicial
-			automato.setEstadoInicial(afd[0]);
-			cout << " ESTADO INICIAL: " << automato.getEstadoInicial() << endl;
-
-			//Para Transição
-			for(int x = 0; x < transicaoafd.size(); x++){
-                cout << " TRANSIÇÕES: " << transicaoafd[x].getOrigem() << " --> " << transicaoafd[x].getDestino() << endl;
-			}
-		};
 	
 
-		Automato mostrarEstruturaAutomato(Automato automato, vector<string> conversao){
+		/*------------------------------FUNÇÃO PARA GERAR AFD------ ------------------------*/
+		Automato gerandoAFD(Automato automato, vector<string> conversao){
 			vector<string> afdFinal;
 			vector<string> afd;
 			vector<string> uniaoEstados;
@@ -149,6 +107,7 @@ class Subconjuntos{
 				estados += conversao[x];
 			}
 			afd.push_back(estados);
+			armazenaEstados.push_back(estados);
 			uniaoEstados.push_back(estados);
 			op1 = estados;
 
@@ -193,7 +152,6 @@ class Subconjuntos{
 			}
 			automato.setEstados(uniaoEstados);
 			vector<Transicaoafd> transicaoafd = automato.getTransicoesafd();
-			//automato.adicionaTransicoesafd(automato.getTransicoesafd());
 							
 			for(int b = 0; b < transicaoafd.size(); b++){
                 cout << transicaoafd[b].getSimbolo() << " - TRANSIÇÕES: " << transicaoafd[b].getOrigem() << " --> " << transicaoafd[b].getDestino() << endl;
@@ -210,12 +168,22 @@ class Subconjuntos{
 				}
 			}
 			cout << endl << endl;
-			//automatoAFD(automato);
+			//gerandoAFDFinal(automato);
 			imprimirAutomato(automato, dados);
 			return automato;
 		};
-		void primeiroItem(Automato automato){
 
+
+		void gerandoAFDFinal(Automato automato, vector<string> conversao){
+			Automato automatoafd = gerandoAFD(automato, conversao);
+			vector<string> estadosEnvia ;
+			
+			for(int x = 0; x < automatoafd.getNumeroEstados(); x++){
+				cout << "ESTADOS: " << automatoafd.getEstado(x) << endl;
+				//estadosEnvia = afd.getEstado(x);
+				
+				cout << "ESTADOS 2: " << automatoafd.getEstado(x).length() << endl;
+			}
 		};
 		
 		void automatoAFD(Automato automato){
@@ -223,7 +191,7 @@ class Subconjuntos{
 			for(int x = 0; x < automato.getNumeroEstados(); x++){
 				cout << "ESTADOS: " << automato.getEstado(x) << endl;
 				std.push_back(automato.getEstado(x+1));
-				mostrarEstruturaAutomato(automato, std);
+				gerandoAFD(automato, std);
 				std.clear();
 			}
 		};
@@ -264,7 +232,58 @@ class Subconjuntos{
 			cout << endl;
 		};
 
+
+		/*------------------------FUNÇÃO ABAIXO PARA TESTES DE AFD E FECHO E-------------------*/
 		void baseAFD(Automato automato) {
+			string estados, recebe, alfabetoAfd;
+			vector<string> afd;
+			vector<Transicao> transicoes = automato.getTransicoes();
+			vector<Transicaoafd> transicaoafd = automato.getTransicoesafd();
+			//Para Alfabeto
+			cout << " \t AUTOMATO FINITO DETERMINISTICO" << endl;
+			recebe = automato.getAlfabeto();
+			for(int x = 0; x < recebe.length()-1; x++){
+				alfabetoAfd += recebe[x];
+			}
+			automato.setAlfabeto(alfabetoAfd);
+			cout << " ALFABETO: " << automato.getAlfabeto() << endl;
+			cout << " TAMANHO ALFABETO: " << automato.getTamanhoAlfabeto() << endl;
+
+			//Para Estado Inicial
+			automato.setEstadoInicial(afd[0]);
+			cout << " ESTADO INICIAL: " << automato.getEstadoInicial() << endl;
+
+			//Para Transição
+			for(int x = 0; x < transicaoafd.size(); x++){
+                cout << " TRANSIÇÕES: " << transicaoafd[x].getOrigem() << " --> " << transicaoafd[x].getDestino() << endl;
+			}
+		};
+
+
+
+		void mostrarEstruturaAutomato(Automato automato){
+            vector<Transicao> transicoes = automato.getTransicoes();
+            vector<string> fechos;
+            cout << " \t AUTOMATO COM MOVIMENTO VAZIO" << endl;
+			cout << " ALFABETO: " << automato.getAlfabeto() << endl;
+			cout << " TAMANHO ALFABETO: " << automato.getTamanhoAlfabeto() << endl;
+			cout << " ESTADO INICIAL: " << automato.getEstadoInicial() << endl;
+			cout << " ESTADO FINAL: " << automato.getEstadoFinal() << endl;
+			cout << " ESTADOS: ";
+			for(int x = 0; x < automato.getNumeroEstados(); x++){
+                cout << automato.getEstado(x) << " ";
+			}
+			cout << endl;
+            cout << " QUANT ESTADOS: " << automato.getNumeroEstados() << endl;
+            cout << " QUANT TRANSIÇÕES: " << automato.getNumeroTransicoes() << endl;
+            cout << "\t TRANSIÇÕES: " << endl;
+			for(int x = 0; x < transicoes.size(); x++){
+                cout << " TRANSIÇÕES: " << transicoes[x].getOrigem() << " --> " << transicoes[x].getDestino() << endl;
+			}
+			cout << "------------------------------------------------------------" << endl;
+		};
+
+		void baseAFD(Automato automato, vector<string> conversao) {
 			string estados, recebe, alfabetoAfd;
 			vector<string> afd;
 			vector<Transicao> transicoes = automato.getTransicoes();

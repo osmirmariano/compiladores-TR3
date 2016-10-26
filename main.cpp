@@ -69,6 +69,7 @@ int main(int argc, char const *argv[]){
                         }
                     }
                 }
+                cout << "---------------------------------------------------" << endl;
                 break;
                     
             case 4:
@@ -76,8 +77,8 @@ int main(int argc, char const *argv[]){
                 cout << "\t VISUALIZAÇÃO DO AFD" << endl;
                 cout << "---------------------------------------------------" << endl;
                 //subconj->conversaoAFNE_AFD(automato, conversao);
-                subconj->mostrarEstruturaAutomato(automato, conversao);
-                //subconj->imprimirAutomato(automato, dados);
+                //subconj->gerandoAFD(automato, conversao);
+                subconj->gerandoAFDFinal(automato, conversao);
                 
                 break;
             case 5:
