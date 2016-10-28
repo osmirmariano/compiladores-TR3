@@ -50,17 +50,52 @@ class Afd{
 
 		void gerandoEstadosAFD(Automato automato, vector<string> conversao){
 			vector<string> recebeEstados;
+			vector<string> uniaoEstados;
 			string simbolo = automato.getAlfabeto();
+			string recebeSimbolo, estados;
+
+			estados = converterString(conversao);
+			uniaoEstados.push_back(estados);
+			automato.setEstados(uniaoEstados);
+			estados.clear();
 
 			for(int x = 0; x < simbolo.length()-1; x++){
-				recebeEstados = gerando(automato, conversao, simbolo[x]);
+				recebeSimbolo = simbolo[x];
+				recebeEstados = gerando(automato, conversao, recebeSimbolo);
+				estados = converterString(recebeEstados);
 
-				for(int y = 0; y < recebeEstados.size(); y++){
-					cout << " ESTADOS: " << recebeEstados[y] << endl;
-				}	
+				cout << " TA: " << automato.getNumeroEstados() << endl;
+				cout << " SIMBOLO: " << simbolo[x] << endl;
+
+				if (verificaIguais(automato, estados) == true){
+					uniaoEstados.push_back(estados);
+					automato.setEstados(uniaoEstados);
+				}
 				cout << endl;
 			}
+			cout << " TA FI: " << automato.getNumeroEstados() << endl;
+			for(int x = 0; x < automato.getNumeroEstados(); x++){
+				cout << " ESTADOS: " << automato.getEstado(x) << endl;
+			}
 			
+		};
+
+
+		string converterString(vector <string> convert){
+			string novaString;
+			for(int x = 0; x < convert.size(); x++){
+				novaString += convert[x];
+			}
+			return novaString;
+		};
+
+		bool verificaIguais(Automato automato, string estados){
+			for(int y = 0; y < automato.getNumeroEstados(); y++){
+				if(automato.getEstado(y) != estados)
+					return true;
+				else
+					return false;
+			}
 		};
 
 		/*------------------------------FUNÇÃO PARA GERAR AFD------ ------------------------*/
