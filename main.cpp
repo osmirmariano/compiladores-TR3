@@ -4,7 +4,7 @@
 #include "Thompson.cpp"
 #include "Automato.cpp"
 #include "Subconjuntos.cpp"
-//#include "Afd.cpp"
+#include "Afd.cpp"
 using namespace std;
 
 int main(int argc, char const *argv[]){
@@ -13,7 +13,7 @@ int main(int argc, char const *argv[]){
     Posfixa *pos = new Posfixa();
     Thompson *tho = new Thompson();
     Subconjuntos *subconj = new Subconjuntos();
-    //Afd *afd = new Afd();
+    Afd *afd = new Afd();
     Automato automato;
 
     string estado;
@@ -64,9 +64,6 @@ int main(int argc, char const *argv[]){
                 else{
                     for(int x = 0; x < automato.getNumeroEstados(); x++){
                         subconj->imprimirFechos(automato, automato.getEstado(x));
-                        if(x == 0){
-                            conversao = subconj->fechoEOficial(automato, automato.getEstado(x));
-                        }
                     }
                 }
                 cout << "---------------------------------------------------" << endl;
@@ -76,9 +73,14 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 cout << "\t VISUALIZAÇÃO DO AFD" << endl;
                 cout << "---------------------------------------------------" << endl;
+                conversao = subconj->fechoEOficial(automato, automato.getEstado(0));
+                //subconj->gerandoAFD(automato, conversao);
+                //subconj->gerandoAFDOriginal(automato, conversao);
+                
                 //subconj->conversaoAFNE_AFD(automato, conversao);
                 //subconj->gerandoAFD(automato, conversao);
-                subconj->gerandoAFDFinal(automato, conversao);
+                //afd->gerandoAFDOriginal(automato, conversao);
+                afd->gerandoEstadosAFD(automato, conversao);
                 
                 break;
             case 5:
@@ -93,7 +95,7 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 //posTho = pos->retorno();
                 subconj->mostrarEstruturaAutomato(automato);
-                subconj->baseAFD(automato, conversao);
+                //afd->baseAFD(automato, conversao);
                 //afd->baseAFD(automato, conversao);
                 //tho->recebeAutomato(posTho);
                 break;
