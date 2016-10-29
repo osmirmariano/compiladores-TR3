@@ -19,6 +19,8 @@ class Afd{
 			void imprimirAutomato(Automato automato, string dados);
 			void gerandoEstadosAFD(Automato automato, vector<string> conversao);
 			vector<string> gerando(Automato automato, vector<string> conversao, string simbolo);
+			string converterString(vector <string> convert);
+			bool verificaIguais(Automato automato, string estados);
 		};
 		~Afd();
 
@@ -63,23 +65,18 @@ class Afd{
 				recebeSimbolo = simbolo[x];
 				recebeEstados = gerando(automato, conversao, recebeSimbolo);
 				estados = converterString(recebeEstados);
-
-				cout << " TA: " << automato.getNumeroEstados() << endl;
-				cout << " SIMBOLO: " << simbolo[x] << endl;
-
 				if (verificaIguais(automato, estados) == true){
 					uniaoEstados.push_back(estados);
 					automato.setEstados(uniaoEstados);
 				}
-				cout << endl;
 			}
-			cout << " TA FI: " << automato.getNumeroEstados() << endl;
+
 			for(int x = 0; x < automato.getNumeroEstados(); x++){
 				cout << " ESTADOS: " << automato.getEstado(x) << endl;
 			}
-			
 		};
 
+	
 
 		string converterString(vector <string> convert){
 			string novaString;
