@@ -73,14 +73,13 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 cout << "\t VISUALIZAÇÃO DO AFD" << endl;
                 cout << "---------------------------------------------------" << endl;
-                conversao = subconj->fechoEOficial(automato, automato.getEstado(0));
-                //subconj->gerandoAFD(automato, conversao);
-                //subconj->gerandoAFDOriginal(automato, conversao);
-                
-                //subconj->conversaoAFNE_AFD(automato, conversao);
-                //subconj->gerandoAFD(automato, conversao);
-                //afd->gerandoAFDOriginal(automato, conversao);
+                // for(int x = 0; x < subconj->fechoEOficial(automato, automato.getEstados()).size(); x++){
+                //     conversao = subconj->fechoEOficial(automato, automato.getEstado(x));
+                // }   
+                conversao = subconj->fechoEOficial(automato, automato.getEstado(x));  
+                subconj->renomearEstados(automato);
                 afd->gerandoEstadosAFD(automato, conversao);
+
                 
                 break;
             case 5:

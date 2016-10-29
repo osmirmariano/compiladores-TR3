@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <sstream>
 #include "Automato.cpp"
 #include "Transicao.cpp"
 #include "Transicaoafd.cpp"
@@ -18,6 +19,20 @@ class Subconjuntos{
 			void imprimirFechos (Automato automato, string estadoAtual);
 		};
 		~Subconjuntos();
+
+
+		Automato renomearEstados(Automato automato){
+			stringstream conversao;
+            vector<string> nomeNovo;
+            int tamanho = automato.getNumeroEstados();
+			for(int x = 0; x < tamanho; x++){
+				conversao << x;
+                nomeNovo.push_back(conversao.str());
+				automato.setEstados(nomeNovo);
+               	conversao.str("");
+			}
+			return automato;
+		};
 
 		/*-----------------------------FUNÇÃO FECHOSE---------------------------------*/
 		vector<string> fechosE(Automato automato, string estadoAtual){

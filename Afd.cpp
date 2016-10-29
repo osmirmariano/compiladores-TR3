@@ -74,7 +74,7 @@ class Afd{
 					op2 = estados;
 				}
 				char simb = simbolo[x];
-				gerandoTransicoesAFD(automato, conversao, simb, op1, op2);				
+				gerandoTransicoesAFD(automato, conversao, op1, op2, simb);				
 
 			}
 			imprimirTransicoesAFD(automato);
