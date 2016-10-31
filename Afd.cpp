@@ -89,10 +89,6 @@ class Afd{
 			}
 		};
 
-		string retornaRepeticao(string repCiclo){
-			return repCiclo;
-		};
-
 		/*----------------------------FUNÇÃO PARA CRIAR OS ESTADOS---------------------------*/
 		Automato gerandoEstadosAFD(Automato automato, vector<string> conversao){
 			vector<string> recebeEstados;
@@ -114,13 +110,17 @@ class Afd{
 					uniaoEstados.push_back(estados);
 					automato.setEstados(uniaoEstados);
 					op2 = estados;
+					char simb = simbolo[x];
+					gerandoTransicoesAFD(automato, conversao, op1, op2, simb);	
+					automatoAfdFinal(automato, recebeEstados);
 				}
-				char simb = simbolo[x];
-				gerandoTransicoesAFD(automato, conversao, op1, op2, simb);				
 			}
 			return automato;
 		};
 
+		void automatoAfdFinal(Automato automato, vector<string> recebeEstados){
+			gerandoEstadosAFD(automato, recebeEstados);
+		};
 
 		void gerandoTransicoesAFD(Automato automato, vector<string> conversao, string op1, string op2, char simbolo){
 			vector<Transicao> transicoes = automato.getTransicoes();
@@ -177,7 +177,7 @@ class Afd{
 						if(automatoAFD.getEstado(x) == transicaoafd[k].getOrigem()){
 	                        if(dados[j] == transicaoafd[k].getSimbolo()){
 	                        	cout << transicaoafd[k].getDestino() << " | ";
-	                        	//imprimirTransicoesAFD(automatoAFD);
+	                        	imprimirTransicoesAFD(automatoAFD);
 	                        }
 						}
 					}
