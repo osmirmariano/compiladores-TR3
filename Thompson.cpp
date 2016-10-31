@@ -387,7 +387,6 @@ class Thompson{
 				novo = "q" + to_string(contador);
 				automato.alteraEstado(anterior, novo);
 			}
-
 			return automato;
 		};
 
@@ -401,7 +400,6 @@ class Thompson{
 				novo = "a" + anterior;
 				automato.alteraEstado(anterior, novo);
 			}
-
 			return automato;
 		};
 
@@ -413,7 +411,6 @@ class Thompson{
 				novo = "q" + to_string(contador);
 				automato.alteraEstado(anterior, novo);
 			}
-
 			return automato;
 		};
 };

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <sstream>
 #include "Subconjuntos.cpp"
 #include "Automato.cpp"
 #include "Transicao.cpp"
@@ -21,8 +22,25 @@ class Afd{
 			vector<string> gerando(Automato automato, vector<string> conversao, string simbolo);
 			string converterString(vector <string> convert);
 			bool verificaIguais(Automato automato, string estados);
+			Automato renomearEstadosAFD(Automato automato);
 		};
 		~Afd();
+
+		/*--------------------------FUNÇÃO PARA RENOMEAR ESTADOS PARA AFD-----------------------*/
+		Automato renomearEstados(Automato automato){
+			stringstream conversao;
+            vector<string> nomeNovo;
+            string anterior, novo;
+            int tamanho = automato.getNumeroEstados();
+			for(int x = 0; x < tamanho; x++){
+				anterior = automato.getEstado(x);
+				conversao << x;
+                novo = conversao.str();
+				automato.alteraEstado(anterior, novo);
+               	conversao.str("");
+			}
+			return automato;
+		};
 
 		/*--------------------------FUNÇÃO VERIFICAR CADA ELEMENTO OS ESTADOS------------------*/
 		vector<string> gerando(Automato automato, vector<string> conversao, string simbolo){
@@ -53,6 +71,7 @@ class Afd{
 
 		/*----------------------------FUNÇÃO PARA CRIAR OS ESTADOS---------------------------*/
 		void gerandoEstadosAFD(Automato automato, vector<string> conversao){
+			//automato = renomearEstados(automato);
 			vector<string> recebeEstados;
 			vector<string> uniaoEstados;
 			string simbolo = automato.getAlfabeto();
@@ -75,21 +94,16 @@ class Afd{
 				}
 				char simb = simbolo[x];
 				gerandoTransicoesAFD(automato, conversao, op1, op2, simb);				
-
 			}
-			imprimirTransicoesAFD(automato);
-			imprimirAutomatoAFD(automato);
 		};
 
-		void renomear(Automato automato){
-			
-		};
 
 		void principalAFD(Automato automato){
 
 		};
 
 		void gerandoTransicoesAFD(Automato automato, vector<string> conversao, string op1, string op2, char simbolo){
+			//automato = renomearEstados(automato);// Depois chamar agora fazendo os testes
 			vector<Transicao> transicoes = automato.getTransicoes();
 			vector<Transicaoafd> transicaoafd = automato.getTransicoesafd();
 
@@ -139,27 +153,29 @@ class Afd{
 			vector<Transicao> transicoes = automato.getTransicoes();
 			vector<Transicaoafd> transicaoafd = automato.getTransicoesafd();
 
-			string dados = automato.getAlfabeto();
+			Automato automatoAFD;
+			automatoAFD = renomearEstados(automato);
+			string dados = automatoAFD.getAlfabeto();
 			string armazena;
 			cout << endl << "----------------------------------------------------------------------" << endl;
-			cout << " ESTADOS" ;
-			for (int x = 0; x < automato.getTamanhoAlfabeto()-1; x++){
-				cout << "                 |    " << dados[x];
+			cout << "     ESTADOS" ;
+			for (int x = 0; x < automatoAFD.getTamanhoAlfabeto()-1; x++){
+				cout << "     |    " << dados[x];
 			}
 			cout << endl << "----------------------------------------------------------------------" << endl;
-			for (int x = 0; x < automato.getNumeroEstados(); x++) {
+			for (int x = 0; x < automatoAFD.getNumeroEstados(); x++) {
 				if(x == 0)
-					cout << " ->" << automato.getEstado(x) << "          |";
+					cout << "       ->" << automatoAFD.getEstado(x) << "       |";
 				else
-					cout << "  " << automato.getEstado(x) << "   |";
+					cout << "         " << automatoAFD.getEstado(x) << "       |";
 				cout << endl << "----------------------------------------------------------------------" << endl;
 
-				for (int  j = 0; j < automato.getTamanhoAlfabeto()-1; j++) {
+				for (int  j = 0; j < automatoAFD.getTamanhoAlfabeto()-1; j++) {
 					for (int k = 0; k <  transicaoafd.size(); k++) {
-						if(automato.getEstado(x) == transicaoafd[k].getOrigem()){
+						if(automatoAFD.getEstado(x) == transicaoafd[k].getOrigem()){
 	                        if(dados[j] == transicaoafd[k].getSimbolo()){
 	                        	cout << transicaoafd[k].getDestino() << " | ";
-	                        	//imprimirTransicoesAFD(automato);
+	                        	//imprimirTransicoesAFD(automatoAFD);
 	                        }
 						}
 					}

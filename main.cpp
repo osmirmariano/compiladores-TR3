@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stack>
+#include <sstream>
 #include "Posfixa.cpp"
 #include "Thompson.cpp"
 #include "Automato.cpp"
@@ -14,7 +15,7 @@ int main(int argc, char const *argv[]){
     Thompson *tho = new Thompson();
     Subconjuntos *subconj = new Subconjuntos();
     Afd *afd = new Afd();
-    Automato automato;
+    Automato automato, automato2;
 
     string estado;
     vector<string> conversao;   
@@ -49,7 +50,11 @@ int main(int argc, char const *argv[]){
                 cout << "\t VISUALIZAÇÃO DO AUTÔMATO DE THOMPSON" << endl;
                 cout << "---------------------------------------------------" << endl;
                 posTho = pos->retorno();
-                automato = tho->montadorAutomato(posTho);
+                automato2 = tho->montadorAutomato(posTho);
+                automato = subconj->renomearEstados(automato2);
+                
+
+
                 break;
             case 3: 
                 cout << "---------------------------------------------------" << endl;
@@ -76,7 +81,7 @@ int main(int argc, char const *argv[]){
                 // for(int x = 0; x < subconj->fechoEOficial(automato, automato.getEstados()).size(); x++){
                 //     conversao = subconj->fechoEOficial(automato, automato.getEstado(x));
                 // }   
-                conversao = subconj->fechoEOficial(automato, automato.getEstado(x));  
+                conversao = subconj->fechoEOficial(automato, automato.getEstado(0));  
                 subconj->renomearEstados(automato);
                 afd->gerandoEstadosAFD(automato, conversao);
 
@@ -109,3 +114,4 @@ int main(int argc, char const *argv[]){
         cout << "\e[H\e[2J";//Comando para limpar a tela
     }while(op != 0);
 };
+
