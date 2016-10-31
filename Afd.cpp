@@ -17,6 +17,7 @@ class Afd{
 	public:
 		Afd(){
 			Automato gerandoAFDOriginal(Automato automato, vector<string> conversao);
+			void gerandoTransicoesAFD(Automato automato, vector<string> conversao, string op1, string op2, char simbolo);
 			void imprimirAutomato(Automato automato, string dados);
 			void gerandoEstadosAFD(Automato automato, vector<string> conversao);
 			vector<string> gerando(Automato automato, vector<string> conversao, string simbolo);
@@ -42,6 +43,25 @@ class Afd{
 			return automato;
 		};
 
+		/*----------------------------FUNÇÃO PARA TRANSFORMAR EM STRING------------------------*/
+		string converterString(vector <string> convert){
+			string novaString;
+			for(int x = 0; x < convert.size(); x++){
+				novaString += convert[x];
+			}
+			return novaString;
+		};
+
+		/*----------------------------FUNÇÃO VERIFICAR SE TEM REPETIDOS------------------------*/
+		bool verificaIguais(Automato automato, string estados){
+			for(int y = 0; y < automato.getNumeroEstados(); y++){
+				if(automato.getEstado(y) != estados)
+					return true;
+				else
+					return false;
+			}
+		};
+
 		/*--------------------------FUNÇÃO VERIFICAR CADA ELEMENTO OS ESTADOS------------------*/
 		vector<string> gerando(Automato automato, vector<string> conversao, string simbolo){
 			vector<string> recebeu;
@@ -49,7 +69,7 @@ class Afd{
 			vector<Transicao> transicoes = automato.getTransicoes();
 			int o = 0;
 			receb.clear();
-
+			//Fazer o teste para cada posição de conversão e com todos gerar um único estado
 			for(int x = 0; x < simbolo.length(); x++){
 				for(int y = 0; y < conversao.size(); y++){
 					for(int z = 0; z < transicoes.size(); z++){
@@ -69,9 +89,12 @@ class Afd{
 			}
 		};
 
+		string retornaRepeticao(string repCiclo){
+			return repCiclo;
+		};
+
 		/*----------------------------FUNÇÃO PARA CRIAR OS ESTADOS---------------------------*/
-		void gerandoEstadosAFD(Automato automato, vector<string> conversao){
-			//automato = renomearEstados(automato);
+		Automato gerandoEstadosAFD(Automato automato, vector<string> conversao){
 			vector<string> recebeEstados;
 			vector<string> uniaoEstados;
 			string simbolo = automato.getAlfabeto();
@@ -95,15 +118,11 @@ class Afd{
 				char simb = simbolo[x];
 				gerandoTransicoesAFD(automato, conversao, op1, op2, simb);				
 			}
+			return automato;
 		};
 
-
-		void principalAFD(Automato automato){
-
-		};
 
 		void gerandoTransicoesAFD(Automato automato, vector<string> conversao, string op1, string op2, char simbolo){
-			//automato = renomearEstados(automato);// Depois chamar agora fazendo os testes
 			vector<Transicao> transicoes = automato.getTransicoes();
 			vector<Transicaoafd> transicaoafd = automato.getTransicoesafd();
 
@@ -120,7 +139,7 @@ class Afd{
 				}
 			}
 			imprimirTransicoesAFD(automato);
-			//imprimirAutomatoAFD(automato);
+			imprimirAutomatoAFD(automato);
 		};
 
 		void imprimirTransicoesAFD(Automato automato){
@@ -130,24 +149,7 @@ class Afd{
 			}
 		}
 	
-		/*----------------------------FUNÇÃO PARA TRANSFORMAR EM STRING------------------------*/
-		string converterString(vector <string> convert){
-			string novaString;
-			for(int x = 0; x < convert.size(); x++){
-				novaString += convert[x];
-			}
-			return novaString;
-		};
-
-		/*----------------------------FUNÇÃO VERIFICAR SE TEM REPETIDOS------------------------*/
-		bool verificaIguais(Automato automato, string estados){
-			for(int y = 0; y < automato.getNumeroEstados(); y++){
-				if(automato.getEstado(y) != estados)
-					return true;
-				else
-					return false;
-			}
-		};
+		
 
 		void imprimirAutomatoAFD(Automato automato){
 			vector<Transicao> transicoes = automato.getTransicoes();

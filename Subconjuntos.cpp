@@ -21,21 +21,7 @@ class Subconjuntos{
 		};
 		~Subconjuntos();
 
-
-		// Automato renomearEstados(Automato automato){
-		// 	stringstream conversao;
-  //           vector<string> nomeNovo;
-  //           int tamanho = automato.getNumeroEstados();
-		// 	for(int x = 0; x < tamanho; x++){
-		// 		conversao << x;
-  //               nomeNovo.push_back(conversao.str());
-		// 		automato.setEstados(nomeNovo);
-  //              	conversao.str("");
-		// 	}
-		// 	return automato;
-		// };
-
-
+		/*-----------------------------FUNÇÃO PARA RENOMEAR ESTADOS--------------------------*/
 		Automato renomearEstados(Automato automato){
 			stringstream conversao;
             vector<string> nomeNovo;
@@ -51,27 +37,8 @@ class Subconjuntos{
 			return automato;
 		};
 		
-		// Automato renomeiaConcatenacaoB(Automato automato, string estadoFinal) {
-		// 	string final = "";
-		// 	int contador;
-		// 	for (int i = 1; i < estadoFinal.size(); i++){
-		// 		final.push_back(estadoFinal[i]);
-		// 	}
-		// 	contador = stoi(final);
-		// 	contador++;
-		// 	string novo, anterior;
-		// 	for (int i = 0; i < automato.getNumeroEstados(); i++, contador++) {
-		// 		anterior = automato.getEstado(i);
-		// 		novo = "q" + to_string(contador);
-		// 		automato.alteraEstado(anterior, novo);
-		// 	}
-
-		// 	return automato;
-		// };
-
-		/*-----------------------------FUNÇÃO FECHOSE---------------------------------*/
+		/*-----------------------------FUNÇÃO FECHOSE----------------------------------*/
 		vector<string> fechosE(Automato automato, string estadoAtual){
-			//automato = renomearEstados(automato);
 			vector<string> armazena;
             vector<Transicao> transicoes = automato.getTransicoes();
             armazena.clear();
@@ -87,7 +54,6 @@ class Subconjuntos{
 
 		/*-----------------------------FUNÇÃO FECHOSE OFICIAL----------------------------*/
 		vector<string> fechoEOficial(Automato automato, string estadoAtual){
-			//automato = renomearEstados(automato);
 			vector<string> fechos;
 			vector<string> teste;
 			vector<Transicao> transicoes = automato.getTransicoes();
@@ -113,7 +79,6 @@ class Subconjuntos{
 		
 		/*---------------------------FUNÇÃO PARA IMPRIMIR FECHO E ------------------------*/
 		void imprimirFechos (Automato automato, string estadoAtual){
-			//automato = renomearEstados(automato);
 			string estado;
 			estado = estadoAtual;
 			vector<string> resultado = fechoEOficial(automato, estadoAtual);
@@ -147,7 +112,6 @@ class Subconjuntos{
 		};
 
 		void mostrarEstruturaAutomato(Automato automato){
-			//automato = renomearEstados(automato);
             vector<Transicao> transicoes = automato.getTransicoes();
             vector<string> fechos;
             cout << " \t AUTOMATO COM MOVIMENTO VAZIO" << endl;

@@ -15,7 +15,7 @@ int main(int argc, char const *argv[]){
     Thompson *tho = new Thompson();
     Subconjuntos *subconj = new Subconjuntos();
     Afd *afd = new Afd();
-    Automato automato, automato2;
+    Automato automato, automato2, automatoAFD;
 
     string estado;
     vector<string> conversao;   
@@ -45,6 +45,7 @@ int main(int argc, char const *argv[]){
                 cin >> expressao;
                 pos->operadoresBinariosVerificacao(expressao);
                 break;
+
             case 2:
                 cout << "---------------------------------------------------" << endl;
                 cout << "\t VISUALIZAÇÃO DO AUTÔMATO DE THOMPSON" << endl;
@@ -52,10 +53,8 @@ int main(int argc, char const *argv[]){
                 posTho = pos->retorno();
                 automato2 = tho->montadorAutomato(posTho);
                 automato = subconj->renomearEstados(automato2);
-                
-
-
                 break;
+
             case 3: 
                 cout << "---------------------------------------------------" << endl;
                 cout << "\t VISUALIZAÇÃO DOS FECHO-E" << endl;
@@ -78,14 +77,9 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 cout << "\t VISUALIZAÇÃO DO AFD" << endl;
                 cout << "---------------------------------------------------" << endl;
-                // for(int x = 0; x < subconj->fechoEOficial(automato, automato.getEstados()).size(); x++){
-                //     conversao = subconj->fechoEOficial(automato, automato.getEstado(x));
-                // }   
                 conversao = subconj->fechoEOficial(automato, automato.getEstado(0));  
-                subconj->renomearEstados(automato);
                 afd->gerandoEstadosAFD(automato, conversao);
 
-                
                 break;
             case 5:
                 cout << "---------------------------------------------------" << endl;
@@ -93,6 +87,7 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 //CHAMA A FUNÇÃO MINIMIZAÇÃO
                 break;
+
             case 6: 
                 cout << "---------------------------------------------------" << endl;
                 cout << "\t VISUALIZAÇÃO DO AUTÔMATO ESTRUTURADO" << endl;
@@ -103,9 +98,11 @@ int main(int argc, char const *argv[]){
                 //afd->baseAFD(automato, conversao);
                 //tho->recebeAutomato(posTho);
                 break;
+
             case 0:
                 cout << "\tAPLICAÇÃO ENCERRADA COM SUCESSO!" << endl << endl;
                 break;
+
             default:
                 cout << "\tOPÇÃO INVÁLIDA, POR FAVOR ESCOLHA UMA VÁLIDA" << endl;
         }
