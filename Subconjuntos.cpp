@@ -38,44 +38,46 @@ class Subconjuntos{
 		};
 		
 		/*-----------------------------FUNÇÃO FECHOSE----------------------------------*/
-		vector<string> fechosE(Automato automato, string estadoAtual){
+		
+	    vector<string> fechosE(Automato automato, string estadoAtual){
 			vector<string> armazena;
             vector<Transicao> transicoes = automato.getTransicoes();
             armazena.clear();
+
             for(int z = 0; z < transicoes.size(); z++){
-	        	if(transicoes[z].getSimbolo() == '&' ){
-	        		if(transicoes[z].getOrigem() == estadoAtual){
+	        	if(transicoes[z].getOrigem() == estadoAtual){
+	        		if(transicoes[z].getSimbolo() == '&' ){
 		        		armazena.push_back(transicoes[z].getDestino());
 		           	}
 	           	}
 	        }
+
 	        return armazena;
 		};
 
 		/*-----------------------------FUNÇÃO FECHOSE OFICIAL----------------------------*/
 		vector<string> fechoEOficial(Automato automato, string estadoAtual){
-			vector<string> fechos;
-			vector<string> teste;
-			vector<Transicao> transicoes = automato.getTransicoes();
-			vector<string> recebe = fechosE(automato, estadoAtual);
-			fechos.push_back(estadoAtual);
-
-			for(int x = 0; x < recebe.size(); x++){
-				fechos.push_back(recebe[x]);
+			vector<string> recebe;
+			vector<string> recebes;
+			recebe = fechosE(automato, estadoAtual);
+			for(int x = 0; x < fechosE(automato, estadoAtual).size(); x++){
+				recebes.push_back(recebe[x]);
 			}
-			for(int x = 0; x < recebe.size(); x++){
-				teste = fechosE(automato, recebe[x]);
-				for(int y = 0; y < teste.size(); y++){
-					fechos.push_back(teste[y]);
-					vector<string> util = fechosE(automato, teste[y]);
-					for(int z = 0; z < util.size(); z++){
-						fechos.push_back(util[z]);
-					}
+
+			for(int x = 0; x < recebes.size(); x++){
+				string enviar = recebes[x];
+				fechosE(automato, enviar);
+				vector<string> alterar;
+				alterar = fechosE(automato, enviar);
+				for(int y = 0; y < alterar.size(); y++){
+					recebes.push_back(alterar[y]);
 				}
 			}
-			return fechos;
+			recebes.push_back(estadoAtual);
+			return recebes;
 		};
 
+		
 		
 		/*---------------------------FUNÇÃO PARA IMPRIMIR FECHO E ------------------------*/
 		void imprimirFechos (Automato automato, string estadoAtual){
@@ -83,22 +85,7 @@ class Subconjuntos{
 			estado = estadoAtual;
 			vector<string> resultado = fechoEOficial(automato, estadoAtual);
 			int flag = 0, x = 0;
-			//Remover elementos repetidos
 	        int tamanho =  resultado.size();
-	        for(int x = 0; x < tamanho; x++){
-	        	for(int y = x+1; y < tamanho; y++){
-	        		if(resultado[x] == resultado[y]){
-	        			int b = x;
-	        			while(b < tamanho){
-	        				resultado[b] = resultado[b+1];
-	        				b++;
-	        			}
-	        			tamanho--;
-	        			x--;
-	        			y--;
-	        		}
-	        	}
-	        }
 	        cout << " FECHOS-E (" << estado << "): ";
 	        cout << "{";
             for(int x = 0; x < tamanho; x++){

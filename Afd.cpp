@@ -139,7 +139,7 @@ class Afd{
 				}
 			}
 			imprimirTransicoesAFD(automato);
-			imprimirAutomatoAFD(automato);
+			//imprimirAutomatoAFD(automato);
 		};
 
 		void imprimirTransicoesAFD(Automato automato){

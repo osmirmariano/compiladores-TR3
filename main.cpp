@@ -51,8 +51,8 @@ int main(int argc, char const *argv[]){
                 cout << "\t VISUALIZAÇÃO DO AUTÔMATO DE THOMPSON" << endl;
                 cout << "---------------------------------------------------" << endl;
                 posTho = pos->retorno();
-                automato2 = tho->montadorAutomato(posTho);
-                automato = subconj->renomearEstados(automato2);
+                automato = tho->montadorAutomato(posTho);
+                //automato = subconj->renomearEstados(automato2);
                 break;
 
             case 3: 
@@ -71,6 +71,7 @@ int main(int argc, char const *argv[]){
                     }
                 }
                 cout << "---------------------------------------------------" << endl;
+
                 break;
                     
             case 4:
