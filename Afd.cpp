@@ -96,13 +96,18 @@ class Afd{
 			string simbolo = automato.getAlfabeto();
 			string recebeSimbolo, estados, op1, op2;
 
-			estados = converterString(conversao);
-			uniaoEstados.push_back(estados);
-			automato.setEstados(uniaoEstados);
-			op1 = estados;
-			estados.clear();
-
 			for(int x = 0; x < simbolo.length()-1; x++){
+				estados = converterString(conversao);
+				if (verificaIguais(automato, estados) == true){
+					uniaoEstados.push_back(estados);
+					automato.setEstados(uniaoEstados);
+					op1 = estados;	
+				}
+				else{
+					op1 = estados;
+				}
+				estados.clear();
+
 				recebeSimbolo = simbolo[x];
 				recebeEstados = gerando(automato, conversao, recebeSimbolo);
 				estados = converterString(recebeEstados);
@@ -111,7 +116,7 @@ class Afd{
 					automato.setEstados(uniaoEstados);
 					op2 = estados;
 					char simb = simbolo[x];
-					gerandoTransicoesAFD(automato, conversao, op1, op2, simb);	
+					gerandoTransicoesAFD(automato, conversao, op1, op2, simb, recebeEstados);	
 					automatoAfdFinal(automato, recebeEstados);
 				}
 			}
@@ -122,7 +127,7 @@ class Afd{
 			gerandoEstadosAFD(automato, recebeEstados);
 		};
 
-		void gerandoTransicoesAFD(Automato automato, vector<string> conversao, string op1, string op2, char simbolo){
+		void gerandoTransicoesAFD(Automato automato, vector<string> conversao, string op1, string op2, char simbolo, vector<string> recebeEstados){
 			vector<Transicao> transicoes = automato.getTransicoes();
 			vector<Transicaoafd> transicaoafd = automato.getTransicoesafd();
 
@@ -138,8 +143,12 @@ class Afd{
 					}
 				}
 			}
+			// for(int x = 0; x < recebeEstados.size(); x++){
+			// 	cout << "RE: " << recebeEstados[x] << endl;
+			// }
 			imprimirTransicoesAFD(automato);
 			//imprimirAutomatoAFD(automato);
+			//imprimirEstadosAFD(automato);
 		};
 
 		void imprimirTransicoesAFD(Automato automato){
@@ -147,16 +156,56 @@ class Afd{
 			for(int b = 0; b < transicaoafd.size(); b++){
                 cout << transicaoafd[b].getSimbolo() << " - TRANSIÇÕES: " << transicaoafd[b].getOrigem() << " --> " << transicaoafd[b].getDestino() << endl;
 			}
-		}
-	
-		
+		};
+
+		/*Automato removerEstadosRepetidos(Automato automato){
+			vector<string> novosEstados;
+			vector<string> soParaReceber;
+			for(int x = 0; x < automato.getNumeroEstados(); x++){
+				cout << "ESTADOS: " << automato.getEstado(x) << endl;
+			}
+
+			cout << "OI TESTANDO" << endl;
+			//Para Remover os estados vazios
+			cout << "TAMANHO: " << automato.getNumeroEstados() << endl;
+			for(int x = 0; x < automato.getNumeroEstados(); x++){
+				if(automato.getEstado(x) != " "){
+					novosEstados.push_back(automato.getEstado(x));
+					cout << "SOM" << endl;
+				}
+			}
+			//Para remover os estados repetidos
+			for(int x = 0; x < novosEstados.size(); x++){
+				for(int y = x+1; x < novosEstados.size(); y++){
+					if(novosEstados[x] == novosEstados[y]){
+						int b = y;
+						while(b < novosEstados.size()){
+							novosEstados[b] = novosEstados[b+1];
+							b++;
+							cout << "ALO" << endl;
+						}
+					}
+				}
+			}
+			//imprimirEstadosAFD(automato);
+			return automato;
+		};
+
+		void imprimirEstadosAFD(Automato automato){
+			//removerEstadosRepetidos(automato);
+			for(int x = 0; x < automato.getNumeroEstados(); x++){
+				cout << "ESTADOS: " << automato.getEstado(x) << endl;
+			}
+		};*/
+
 
 		void imprimirAutomatoAFD(Automato automato){
 			vector<Transicao> transicoes = automato.getTransicoes();
 			vector<Transicaoafd> transicaoafd = automato.getTransicoesafd();
 
 			Automato automatoAFD;
-			automatoAFD = renomearEstados(automato);
+			automatoAFD = automato;
+			//automatoAFD = renomearEstados(automato);
 			string dados = automatoAFD.getAlfabeto();
 			string armazena;
 			cout << endl << "----------------------------------------------------------------------" << endl;

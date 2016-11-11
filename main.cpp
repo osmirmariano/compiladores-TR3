@@ -80,6 +80,7 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 conversao = subconj->fechoEOficial(automato, automato.getEstado(0));  
                 afd->gerandoEstadosAFD(automato, conversao);
+                //afd->removerEstadosRepetidos(automato);
 
                 break;
             case 5:

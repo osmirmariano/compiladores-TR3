@@ -210,8 +210,8 @@ class Posfixa{
             for(int x = 0; x < expressao.length(); x++){
                 if(expressao[x] == '+' || expressao[x] == '.'){
                     if(expressao[x-1] != '(' && expressao[x-1] != '.' && expressao[x-1] != '+' &&
-                        expressao[x+1] != ')' && expressao[x+1] != '.' && expressao[x+1] != '+' &&
-                        x+1 != expressao.length() && x-1 != -1){
+                        expressao[x+1] != ')' && expressao[x+1] != '.' && expressao[x+1] != '+' && 
+                        expressao[x+1] != '*' && x+1 != expressao.length() && x-1 != -1){
                         verifica1 = 1;
                     }
                     else{
