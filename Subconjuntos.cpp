@@ -13,16 +13,15 @@ using namespace std;
 class Subconjuntos{
 	public:
 		Subconjuntos(){
-			void mostrarEstruturaAutomato(Automato automato);
 			vector<string> fechosE(Automato automato, string estadoAtual);
 			vector<string> fechoEOficial(Automato automato, string estadoAtual);
 			void imprimirFechos (Automato automato, string estadoAtual);
-			Automato renomearEstados(Automato automato);
+			//Automato renomearEstados(Automato automato);
 		};
 		~Subconjuntos();
 
 		/*-----------------------------FUNÇÃO PARA RENOMEAR ESTADOS--------------------------*/
-		Automato renomearEstados(Automato automato){
+		/*Automato renomearEstados(Automato automato){
 			stringstream conversao;
             vector<string> nomeNovo;
             string anterior, novo;
@@ -35,10 +34,9 @@ class Subconjuntos{
                	conversao.str("");
 			}
 			return automato;
-		};
+		};*/
 		
 		/*-----------------------------FUNÇÃO FECHOSE----------------------------------*/
-		
 	    vector<string> fechosE(Automato automato, string estadoAtual){
 			vector<string> armazena;
             vector<Transicao> transicoes = automato.getTransicoes();
@@ -86,7 +84,7 @@ class Subconjuntos{
 			vector<string> resultado = fechoEOficial(automato, estadoAtual);
 			int flag = 0, x = 0;
 	        int tamanho =  resultado.size();
-	        cout << " FECHOS-E (" << estado << "): ";
+	        cout << " FECHOS-E (" << estado << ") = ";
 	        cout << "{";
             for(int x = 0; x < tamanho; x++){
             	cout << resultado[x];
@@ -96,28 +94,6 @@ class Subconjuntos{
             	}
             }
             cout << "}" << endl;
-		};
-
-		void mostrarEstruturaAutomato(Automato automato){
-            vector<Transicao> transicoes = automato.getTransicoes();
-            vector<string> fechos;
-            cout << " \t AUTOMATO COM MOVIMENTO VAZIO" << endl;
-			cout << " ALFABETO: " << automato.getAlfabeto() << endl;
-			cout << " TAMANHO ALFABETO: " << automato.getTamanhoAlfabeto() << endl;
-			cout << " ESTADO INICIAL: " << automato.getEstadoInicial() << endl;
-			cout << " ESTADO FINAL: " << automato.getEstadoFinal() << endl;
-			cout << " ESTADOS: ";
-			for(int x = 0; x < automato.getNumeroEstados(); x++){
-                cout << automato.getEstado(x) << " ";
-			}
-			cout << endl;
-            cout << " QUANT ESTADOS: " << automato.getNumeroEstados() << endl;
-            cout << " QUANT TRANSIÇÕES: " << automato.getNumeroTransicoes() << endl;
-            cout << "\t TRANSIÇÕES: " << endl;
-			for(int x = 0; x < transicoes.size(); x++){
-                cout << " " << transicoes[x].getSimbolo() << " TRANSIÇÕES: " << transicoes[x].getOrigem() << " --> " << transicoes[x].getDestino() << endl;
-			}
-			cout << "------------------------------------------------------------" << endl;
 		};
 };
 

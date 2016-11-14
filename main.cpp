@@ -6,6 +6,7 @@
 #include "Automato.cpp"
 #include "Subconjuntos.cpp"
 #include "Afd.cpp"
+//#include "ConversaoAFD.cpp"
 using namespace std;
 
 int main(int argc, char const *argv[]){
@@ -15,6 +16,7 @@ int main(int argc, char const *argv[]){
     Thompson *tho = new Thompson();
     Subconjuntos *subconj = new Subconjuntos();
     Afd *afd = new Afd();
+    //ConversaoAFD *afd = new ConversaoAFD();
     Automato automato, automato2, automatoAFD;
 
     string estado;
@@ -29,7 +31,6 @@ int main(int argc, char const *argv[]){
         cout << " 3 -- VISUALIZAÇÃO DOS FECHO-E" << endl;
         cout << " 4 -- VISUALIZAÇÃO DO AFD" << endl;
         cout << " 5 -- AFD MÍNIMO" << endl;
-        cout << " 6 -- PARA TESTE, VISUALIZAÇÃO DO AUTÔMATO ESTRUTURADO" << endl;
         cout << " 0 -- SAIR" << endl;
         cout << "---------------------------------------------------" << endl;
         cout << " OPÇÃO: ";
@@ -80,6 +81,8 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 conversao = subconj->fechoEOficial(automato, automato.getEstado(0));  
                 afd->gerandoEstadosAFD(automato, conversao);
+                //afd->imprimirAutomatoAFD(automato, conversao);
+                //afd->gerando(automato, conversao);
                 //afd->removerEstadosRepetidos(automato);
 
                 break;
@@ -89,18 +92,6 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 //CHAMA A FUNÇÃO MINIMIZAÇÃO
                 break;
-
-            case 6: 
-                cout << "---------------------------------------------------" << endl;
-                cout << "\t VISUALIZAÇÃO DO AUTÔMATO ESTRUTURADO" << endl;
-                cout << "---------------------------------------------------" << endl;
-                //posTho = pos->retorno();
-                subconj->mostrarEstruturaAutomato(automato);
-                //afd->baseAFD(automato, conversao);
-                //afd->baseAFD(automato, conversao);
-                //tho->recebeAutomato(posTho);
-                break;
-
             case 0:
                 cout << "\tAPLICAÇÃO ENCERRADA COM SUCESSO!" << endl << endl;
                 break;
