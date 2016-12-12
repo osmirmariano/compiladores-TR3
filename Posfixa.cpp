@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <string>
 
+
 using namespace std;
 /*----------------------- DECLARAÇÃO DA ESTRUTURA-------------------------*/
 typedef struct PILHA{

@@ -1,4 +1,5 @@
 #include <iostream>
+#include "ConversaoAFD.cpp"
 
 using namespace std;
 

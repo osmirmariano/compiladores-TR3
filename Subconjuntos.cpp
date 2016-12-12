@@ -16,25 +16,8 @@ class Subconjuntos{
 			vector<string> fechosE(Automato automato, string estadoAtual);
 			vector<string> fechoEOficial(Automato automato, string estadoAtual);
 			void imprimirFechos (Automato automato, string estadoAtual);
-			//Automato renomearEstados(Automato automato);
 		};
 		~Subconjuntos();
-
-		/*-----------------------------FUNÇÃO PARA RENOMEAR ESTADOS--------------------------*/
-		/*Automato renomearEstados(Automato automato){
-			stringstream conversao;
-            vector<string> nomeNovo;
-            string anterior, novo;
-            int tamanho = automato.getNumeroEstados();
-			for(int x = 0; x < tamanho; x++){
-				anterior = automato.getEstado(x);
-				conversao << x;
-                novo = conversao.str();
-				automato.alteraEstado(anterior, novo);
-               	conversao.str("");
-			}
-			return automato;
-		};*/
 		
 		/*-----------------------------FUNÇÃO FECHOSE----------------------------------*/
 	    vector<string> fechosE(Automato automato, string estadoAtual){

@@ -7,7 +7,6 @@
 #include "Transicao.cpp"
 #include "Transicaoafd.cpp"
 
-
 using namespace std;
 
 class Automato {

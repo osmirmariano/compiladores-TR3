@@ -103,11 +103,12 @@ class ConversaoAFD{
 			}
 		};
 
+		/*-----------FUNÇÃO PARA TRANSFORMAR O FECHO  EM STRING E DEPOIS PASSAR PARA UM VETOR----------*/
 		vector<string> afd(Automato automato, vector<string> conversao){
 			vector<string> estadosAfd;
 			vector<string> estadosGerados;
-			string estado, recebeSimbolo;
-			string simbolo = automato.getAlfabeto();
+			string estado, recebeSimbolo, simbolo;
+			simbolo = automato.getAlfabeto();
 
 			estado = converterString(conversao);// Para converter em string
 			if(estado.length() != 0){
@@ -121,7 +122,7 @@ class ConversaoAFD{
 					estadosGerados = gerando(automato, conversao, recebeSimbolo);
 
 					estado = converterString(estadosGerados);
-					if(verificaIguais1(estadosAfd, estado)  == true){
+					if(verificaIguais1(estadosAfd, estado) == true){
 						estadosAfd.push_back(estado);
 						estado.clear();
 						gerandoEstadosAFD(automato, estadosGerados);
@@ -132,7 +133,7 @@ class ConversaoAFD{
 		};
 
 		
-		Automato gerandoEstadosAsFD(Automato automato, vector<string> conversao){
+		/*Automato gerandoEstadosAsFD(Automato automato, vector<string> conversao){
 			vector<string> recebendo;
 			vector<string> novo;
 
@@ -143,9 +144,9 @@ class ConversaoAFD{
 				}
 			}
 			return automato;
-		};
+		};*/
 
-		/*----------------------------FUNÇÃO PARA CRIAR OS ESTADOS---------------------------*/
+		/*-------------------------FUNÇÃO PARA GERAR OS ESTADOS DO AFD-----------------------*/
 		Automato gerandoEstadosAFD(Automato automato, vector<string> conversao){
 			vector<string> recebeEstados;
 			vector<string> uniaoEstados;
@@ -177,10 +178,13 @@ class ConversaoAFD{
 			return automato;
 		};
 
+		/*-------------------------FUNÇÃO PARA CHAMAR GERANDOESTADOSAFD-----------------------*/
 		void automatoAfdFinal(Automato automato, vector<string> recebeEstados){
 			gerandoEstadosAFD(automato, recebeEstados);
 		};
 
+
+		/*-------------------------FUNÇÃO PARA CRIAR AS TRANSIÇÕES----------------------------*/
 		vector<Transicaoafd> gerandoTransicoesAFD(Automato automato, vector<string> conversao, string op1, string op2, char simbolo, vector<string> recebeEstados){
 			vector<Transicao> transicoes = automato.getTransicoes();
 			vector<Transicaoafd> transicaoafd = automato.getTransicoesafd();
@@ -197,39 +201,40 @@ class ConversaoAFD{
 					}
 				}
 			}
-			
-			imprimirTransicoesAFD(automato);			
+			imprimirTransicoesAFD(automato);
 			return transicaoafd;
 		};
 
+		/*-------------------------FUNÇÃO PARA IMPRIMIR AS TRANSIÇÕES----------------------------*/
 		void imprimirTransicoesAFD(Automato automato){
-			vector<Transicaoafd> transicaoafd = automato.getTransicoesafd();			
-			//cout << endl;
+			vector<Transicaoafd> transicaoafd = automato.getTransicoesafd();	
 			for(int b = 0; b < transicaoafd.size(); b++){
                 cout << " SIMBOLO: " << transicaoafd[b].getSimbolo() << " - TRANSIÇÃO: " << transicaoafd[b].getOrigem() << " --> " << transicaoafd[b].getDestino() << endl;
 			}
 		};
 
-		void imprimirEstadosAFD(Automato automato){			
-			//cout << " ESTADOS: " << endl;
+		/*-----------------------------FUNÇÃO PARA IMPRIMIR ESTADOS--------------------------------*/
+		void imprimirEstadosAFD(Automato automato){	
 			for(int b = 0; b < automato.getNumeroEstados(); b++){
-                cout << "  ES: " << automato.getEstado(b) << endl;
+                cout << "  ESTADOS: " << automato.getEstado(b) << endl;
 			}
 		};
 
-
+		/*-----------------------------FUNÇÃO PARA IMPRIMIR O AFD----------------------------------*/
 		void imprimirAutomatoAFD(Automato automato, vector<string> conversao){
 			vector<Transicao> transicoes = automato.getTransicoes();
 			vector<Transicaoafd> transicaoafd = automato.getTransicoesafd();
-			imprimirTransicoesAFD(automato);
-
+			//imprimirTransicoesAFD(automato);
 			Automato automatoAFD;
+			cout << endl;
 			automatoAFD = gerandoEstadosAFD(automato, conversao);
+			
 			automatoAFD = renomearEstados(automatoAFD);
 			string dados = automatoAFD.getAlfabeto();
 			string armazena;
 
-			cout << "TAMANHO: " << transicaoafd.size() << endl;
+			//cout << "TAMANHO TRANSIÇÕES: " << transicaoafd.size() << endl;
+			//cout << "TAMANHO ESTADOS: " << automatoAFD.getNumeroEstados() << endl;
 
 			cout << endl << "----------------------------------------------------------------------" << endl;
 			cout << "     ESTADOS" ;

@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 class Transicaoafd{
 	private:
 		string origem;

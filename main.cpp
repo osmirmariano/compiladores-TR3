@@ -10,15 +10,13 @@ using namespace std;
 
 int main(int argc, char const *argv[]){
     int op;
+    vector<string> conversao, estado;   
     string expressao, posTho, dados;
     Posfixa *pos = new Posfixa();
     Thompson *tho = new Thompson();
     Subconjuntos *subconj = new Subconjuntos();
     ConversaoAFD *afd = new ConversaoAFD();
     Automato automato, automato2, automatoAFD;
-
-    string estado;
-    vector<string> conversao;   
     
     do{
         cout << "---------------------------------------------------" << endl;
@@ -80,8 +78,8 @@ int main(int argc, char const *argv[]){
                 //Conversão irá receber o fecho correspondenete ao estado inicial do AFN-&
                 conversao = subconj->fechoEOficial(automato, automato.getEstado(0));  
                 //Função gerandoEstadosAFD para gerar todos os estados
-                afd->gerandoEstadosAFD(automato, conversao);
-                //afd->imprimirAutomatoAFD(automato, conversao);
+                //afd->gerandoEstadosAFD(automato, conversao);
+                afd->imprimirAutomatoAFD(automato, conversao);
                 //afd->imprimirTransicoesAFD(automato);
                 //afd->gerando(automato, conversao);
                 //afd->removerEstadosRepetidos(automato);
