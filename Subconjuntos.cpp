@@ -74,8 +74,6 @@ class Subconjuntos{
 			recebes.push_back(estadoAtual);
 			return recebes;
 		};
-
-		
 		
 		/*---------------------------FUNÇÃO PARA IMPRIMIR FECHO E ------------------------*/
 		void imprimirFechos (Automato automato, string estadoAtual){

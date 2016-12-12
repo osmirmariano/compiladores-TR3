@@ -5,8 +5,7 @@
 #include "Thompson.cpp"
 #include "Automato.cpp"
 #include "Subconjuntos.cpp"
-#include "Afd.cpp"
-//#include "ConversaoAFD.cpp"
+#include "ConversaoAFD.cpp"
 using namespace std;
 
 int main(int argc, char const *argv[]){
@@ -15,8 +14,7 @@ int main(int argc, char const *argv[]){
     Posfixa *pos = new Posfixa();
     Thompson *tho = new Thompson();
     Subconjuntos *subconj = new Subconjuntos();
-    Afd *afd = new Afd();
-    //ConversaoAFD *afd = new ConversaoAFD();
+    ConversaoAFD *afd = new ConversaoAFD();
     Automato automato, automato2, automatoAFD;
 
     string estado;
@@ -79,9 +77,12 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 cout << "\t VISUALIZAÇÃO DO AFD" << endl;
                 cout << "---------------------------------------------------" << endl;
+                //Conversão irá receber o fecho correspondenete ao estado inicial do AFN-&
                 conversao = subconj->fechoEOficial(automato, automato.getEstado(0));  
+                //Função gerandoEstadosAFD para gerar todos os estados
                 afd->gerandoEstadosAFD(automato, conversao);
                 //afd->imprimirAutomatoAFD(automato, conversao);
+                //afd->imprimirTransicoesAFD(automato);
                 //afd->gerando(automato, conversao);
                 //afd->removerEstadosRepetidos(automato);
 
@@ -90,6 +91,7 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 cout << "\t AUTÔMATO MÍNIMO" << endl;
                 cout << "---------------------------------------------------" << endl;
+                cout << " \tCÓDIGO EM DESENVOLVIMENTO" << endl;
                 //CHAMA A FUNÇÃO MINIMIZAÇÃO
                 break;
             case 0:
