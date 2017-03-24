@@ -10,6 +10,7 @@
 #include "Thompson.cpp"
 using namespace std;
 
+//classe com erro
 class Subconjuntos{
 	public:
 		Subconjuntos(){
